@@ -10,7 +10,7 @@ shutil
 system
 json 
 datetime
-import VoiceClient
-import random
-import sleep as s 
-import sleep 
+VoiceClient
+random
+sleep as s 
+sleep 
