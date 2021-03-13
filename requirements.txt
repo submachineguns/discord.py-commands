@@ -1,13 +1,11 @@
-discord 
-youtube_dl
+discord
 asyncio
+youtube_dl
 traceback
 requests
 sys
 os
 shutil
-system
 json 
 datetime
-VoiceClient
 random
