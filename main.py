@@ -32,6 +32,7 @@ client = commands.Bot(command_prefix = ';', intents=intents)
 client.remove_command('help')
 ROLE = "user"
 
+
 filtered_words = ["nigger", "cp", "child porn", "kkk"]
 
 @client.event
