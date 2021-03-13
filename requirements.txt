@@ -1,0 +1,16 @@
+discord 
+youtube_dl
+asyncio
+cycle
+traceback
+requests
+sys
+os
+shutil
+system
+json 
+datetime
+import VoiceClient
+import random
+import sleep as s 
+import sleep 
