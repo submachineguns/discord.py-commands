@@ -1,5 +1,4 @@
 discord
-asyncio
 traceback
 requests
 sys
