@@ -2,7 +2,5 @@ discord
 asyncio
 youtube_dl
 requests
-shutil
-json 
 datetime
 random
