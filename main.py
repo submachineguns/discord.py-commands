@@ -17,7 +17,6 @@ from os import system
 import json 
 client = discord.Client()
 from colorama import init, Fore, Back, Style
-from discord import Spotify
 import datetime
 from discord.voice_client import VoiceClient
 import random
