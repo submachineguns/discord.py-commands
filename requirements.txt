@@ -12,5 +12,3 @@ json
 datetime
 VoiceClient
 random
-sleep as s 
-sleep 
