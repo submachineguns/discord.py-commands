@@ -2,7 +2,6 @@ discord
 asyncio
 youtube_dl
 requests
-os
 shutil
 json 
 datetime
