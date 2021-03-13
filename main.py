@@ -866,4 +866,4 @@ async def channelclean(ctx):
     print(f"\n\n{Fore.CYAN}Cleared all channels called '{channeltodelete}',be careful when adding unknown bots in the future.\nBe especially careful if the bot is in few servers,requires permissions \nor if the person who requested for it to be added seems desperate.\nAny bot with admin could've easily mass banned and wiped your server,\nthat I have no cure for, so do look out in the future!\n\nGood luck and I'm happy I was able to help!")
 
 
-client.run('ODE1MTA1NzM5NDA3MjI4OTYx.YDnkYA.GYwH9oay9tIyDKsQybCAPrhY2Bc')
+client.run('token')
