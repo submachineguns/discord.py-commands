@@ -6,3 +6,4 @@ datetime
 Pillow
 colorama
 PyNaCl
+ffmpeg
