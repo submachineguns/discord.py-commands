@@ -1,1 +1,1 @@
-worker: python booze
+worker: python main.py
