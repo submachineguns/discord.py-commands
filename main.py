@@ -47,10 +47,10 @@ async def on_ready():
 
 @client.group(invoke_without_command=True)
 async def help(ctx):
-    em = discord.Embed(title = ":beer:  Help ", description = f"``;help [cmd]``",color = 0xf28e1c)
+    em = discord.Embed(title = ":beer:  Help ", description = f"``* means the command has a subcommand``",color = 0xf28e1c)
 
     em.add_field(name = "\n \nModeration", value = "``ban, unban, kick, jail, unjail, bc``", inline=False)
-    em.add_field(name = "Economy", value = "``shop, balance, beg, deposit, withdraw, send, rob, slots,\nbuy, sell, bag, lb``", inline=False)
+    em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join, leave, play, pause, resume, np, queue, skip,\nvolume, stop``", inline=False)
     em.add_field(name = "Utility", value = "``snipe, av,``", inline=False)
