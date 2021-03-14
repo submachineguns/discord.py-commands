@@ -212,8 +212,8 @@ class Music(commands.Cog):
 
         return player
 
-    @commands.command(name='connect', aliases=['join, j'])
-    async def connect_(self, ctx):
+    @commands.command(name='join', aliases=['j'])
+    async def join_(self, ctx):
         try:
             channel = ctx.author.voice.channel
         except AttributeError:
@@ -236,7 +236,7 @@ class Music(commands.Cog):
 
         await ctx.send(f'Connected to: **{channel}**', )
 
-    @commands.command(name='play', aliases=['sing, p'])
+    @commands.command(name='play', aliases=['p'])
     async def play_(self, ctx, *, search: str):
         await ctx.trigger_typing()
 
