@@ -212,7 +212,7 @@ class Music(commands.Cog):
 
         return player
 
-    @commands.command(name='connect', aliases=['join'])
+    @commands.command(name='connect', aliases=['join, j'])
     async def connect_(self, ctx):
         try:
             channel = ctx.author.voice.channel
@@ -236,7 +236,7 @@ class Music(commands.Cog):
 
         await ctx.send(f'Connected to: **{channel}**', )
 
-    @commands.command(name='play', aliases=['sing'])
+    @commands.command(name='play', aliases=['sing, p'])
     async def play_(self, ctx, *, search: str):
         await ctx.trigger_typing()
 
