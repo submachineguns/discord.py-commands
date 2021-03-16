@@ -583,16 +583,22 @@ async def purge(ctx, content):
     amount = int(content) # def amount var
     await ctx.channel.purge(limit=amount + 1) # purgedef is_bot(m):
 
-@client.command()
+@client.command(pass_context=True)
 @commands.cooldown(1, 3, commands.BucketType.user)
 @commands.has_permissions(manage_messages=True)
-async def bc(ctx):
-	deleted = await ctx.message.channel.purge(limit=max_messages, before=ctx.message, check=lambda m: m.author.bot)
+async def bc(ctx, max_messages=50):
+    if max_messages > 2000:
+        await ctx.send('You are unable to do that')
+        return
+
     def is_bot(m):
         return m.author.bot
-    await ctx.channel.purge(limit=50,check=is_bot)  
 
-    emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: {(len(deleted))} messages cleared", color=0x2ecc71)
+    #await ctx.channel.purge(limit=50, check=is_bot)
+
+    deleted = await ctx.message.channel.purge(limit=max_messages, before=ctx.message, check=lambda m: m.author.bot)
+    print(len(deleted))
+    emb = discord.Embed(description=f"{ctx.author.mention}: {(len(deleted))} messages cleared", color=0x2ecc71)
     await ctx.send(embed=emb)
 
 @client.command(aliases=['yeet', 'deport'])
