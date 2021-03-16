@@ -596,6 +596,7 @@ async def purge(ctx, content):
 
         deleted = await ctx.message.channel.purge(limit=max_messages, before=ctx.message, check=lambda m: m.author.bot)
         embed = discord.Embed(color=0xa3eb7b)
+        
         embed.description = f"<:check:818339901959438346> {ctx.author.mention}: Purged **{(len(deleted))}** bot messages "
         await ctx.send(embed=embed, delete_after=5)
         await asyncio.sleep(10)
