@@ -608,10 +608,11 @@ async def bc(self, ctx, max_messages:int=50):
 @commands.has_permissions(ban_members=True)
 @commands.cooldown(1, 5, commands.BucketType.user)
 async def ban(ctx, member: discord.Member, *, reason=None):
-		  await member.ban(reason=reason)
-		  await ctx.send(":thumbsup:")
-		  try:
-			  await ctx.send(f"`{ctx.author}` I require `Administrator` to perform that action") 
+        try:
+          await member.ban(reason=reason)
+          await ctx.send(":thumbsup:")
+        except:
+              await ctx.send(f"`{ctx.author}` I require `Administrator` to perform that action") 
 
 @client.command()
 async def wanted(ctx, user: discord.Member = None):
