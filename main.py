@@ -585,7 +585,7 @@ async def purge(ctx, content=1):
     await ctx.message.delete()
     deleted = await ctx.message.channel.purge(limit=content, before=ctx.message)
 
-    emb = discord.Embed(description=f"{ctx.author.mention}: {(len(deleted))} messages cleared", color=0x2ecc71)
+    emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: {(len(deleted))} messages cleared", color=0x2ecc71)
     await ctx.send(embed=emb)
 
 @client.command(pass_context=True)
