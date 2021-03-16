@@ -610,7 +610,7 @@ async def bc(self, ctx, max_messages:int=50):
 async def ban(ctx, member: discord.Member, *, reason=None):
 		  await member.ban(reason=reason)
 		  await ctx.send(":thumbsup:")
-		  except:
+		  try:
 			  await ctx.send(f"`{ctx.author}` I require `Administrator` to perform that action") 
 
 @client.command()
