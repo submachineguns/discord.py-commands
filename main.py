@@ -602,7 +602,16 @@ async def purge(ctx, content):
         await asyncio.sleep(10)
         return
 
-    
+
+@client.command(aliases=['yeet', 'deport'])
+@commands.has_permissions(ban_members=True)
+@commands.cooldown(1, 5, commands.BucketType.user)
+async def ban(ctx, member: discord.Member, *, reason=None):
+          await member.ban(reason=reason)
+          await ctx.send(":thumbsup:")
+        except:
+              await ctx.send(f"`{ctx.author}` I require `Administrator` to perform that action") 
+
 @client.command()
 async def wanted(ctx, user: discord.Member = None):
     if user == None:
