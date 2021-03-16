@@ -586,21 +586,21 @@ async def purge(ctx, content):
         await ctx.send(embed=emb)
         else:
             
-
 @client.command(name= 'bc', pass_context=True, no_pm=True)
     @commands.has_permissions(manage_messages=True)
     async def bc(self, ctx, max_messages:int=50):
         if max_messages > 2000:
-            emb = discord.Embed(description=f":warning: {ctx.author.mention}: I couldn't delete more than 2000 messages try a smaller purge amount", color=0xf1c40f)
+            emb = discord.Embed(description=f":warning: {ctx.author.mention}: I couldn't delete more than **2000 messages** try a smaller purge amount", color=0xf1c40f)
             await ctx.send(embed=emb)
             return
 
         deleted = await ctx.message.channel.purge(limit=max_messages, before=ctx.message, check=lambda m: m.author.bot)
         embed = discord.Embed(color=0xa3eb7b)
-        embed.description = f"<:check:818339901959438346> {ctx.author.mention}: Purged {(len(deleted))} bot messages "
+        embed.description = f"<:check:818339901959438346> {ctx.author.mention}: Purged **{(len(deleted))}** bot messages "
         await ctx.send(embed=embed, delete_after=5)
         await asyncio.sleep(10)
         return
+
 
 
 @client.command(aliases=['yeet', 'deport'])
