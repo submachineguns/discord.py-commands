@@ -582,7 +582,6 @@ async def snipe(ctx):
 async def purge(ctx, content):
     amount = int(content) # def amount var
     await ctx.channel.purge(limit=amount + 1) # purgedef is_bot(m):
-	return
 	
 	deleted = await ctx.message.channel.purge(limit=max_messages, before=ctx.message, check=lambda m: m.author.bot)
 	emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: {(len(deleted))} messages cleared", color=0x2ecc71)
