@@ -590,10 +590,18 @@ async def bc(ctx):
     def is_bot(m):
         return m.author.bot
     await ctx.channel.purge(limit=50,check=is_bot)  
-    emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: Bot messages cleared", color=0xf1c40f)
+    emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: Bot messages cleared", color=0x2ecc71)
     await ctx.send(embed=emb)
 
-
+@client.command(aliases=['yeet', 'deport'])
+@commands.has_permissions(ban_members=True)
+@commands.cooldown(1, 5, commands.BucketType.user)
+async def ban(ctx, member: discord.Member, *, reason=None):
+        try:
+          await member.ban(reason=reason)
+          await ctx.send(":thumbsup:")
+        except:
+              await ctx.send(f"`{ctx.author}` I require `Administrator` to perform that action") 
     
 @client.command()
 async def wanted(ctx, user: discord.Member = None):
