@@ -582,8 +582,6 @@ async def snipe(ctx):
 async def purge(ctx, content):
     amount = int(content) # def amount var
     await ctx.channel.purge(limit=amount + 1) # purgedef is_bot(m):
-        emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: {(len(deleted))} bot messages cleared", color=0x2ecc71)
-        await ctx.send(embed=emb)
 
 @client.command()
 @commands.cooldown(1, 3, commands.BucketType.user)
@@ -592,7 +590,7 @@ async def bc(ctx):
     def is_bot(m):
         return m.author.bot
     await ctx.channel.purge(limit=50,check=is_bot)  
-    emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: {(len(deleted))} bot messages cleared", color=0x2ecc71)
+    emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: {(len(deleted))} messages cleared", color=0x2ecc71)
     await ctx.send(embed=emb)
 
 
