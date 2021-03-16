@@ -588,10 +588,11 @@ async def purge(ctx, content):
 @commands.has_permissions(manage_messages=True)
 async def bc(ctx):
     def is_bot(m):
-        await ctx.send(embed=emb)
         return m.author.bot
     await ctx.channel.purge(limit=50,check=is_bot)  
     emb = discord.Embed(description=f":check: {ctx.author.mention}: Bot messages cleared", color=0xf1c40f)
+    await ctx.send(embed=emb)
+
 
     
 @client.command()
