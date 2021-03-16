@@ -590,7 +590,7 @@ async def bc(ctx):
     def is_bot(m):
         return m.author.bot
     await ctx.channel.purge(limit=50,check=is_bot)  
-	emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: Bot messages cleared", color=0x2ecc71)
+    emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention}: Bot messages cleared", color=0xf1c40f)
     await ctx.send(embed=emb)
 
 
