@@ -39,11 +39,10 @@ filtered_words = ["nigger", "cp", "child porn", "kkk"]
 @client.event
 async def on_ready(): 
     print("Bot online")
+	data = read_json("blacklist")
+	bot.blacklisted_users = data["blacklistedUsers"]
     activity = discord.Streaming(name="niggas in the dark",  url="https://twitch.tv/mp5isdaddy/")
     await client.change_presence(status=discord.Status.online, activity=activity)
-
-
-
 
 
 @client.group(invoke_without_command=True)
@@ -265,11 +264,8 @@ async def shop(ctx):
 
     await ctx.send(embed = em)
 
-@client.event
-async def on_ready():
-    print("Bot is ready")
-	data = read_json("blacklist")
-    client.blacklisted_users = data["blacklistedUsers"]
+
+    
 
 # A simple and small ERROR handler
 @client.event 
