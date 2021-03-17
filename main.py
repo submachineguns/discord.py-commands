@@ -36,13 +36,12 @@ ROLE = "user"
 
 filtered_words = ["nigger", "cp", "child porn", "kkk"]
 
-@client.event
-async def on_ready(): 
-    print("Bot online")
-	data = read_json("blacklist")
-	bot.blacklisted_users = data["blacklistedUsers"]
-    activity = discord.Streaming(name="niggas in the dark",  url="https://twitch.tv/mp5isdaddy/")
-    await client.change_presence(status=discord.Status.online, activity=activity)
+@bot.event
+async def on_ready():
+    print(f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: -\n-----")
+    data = read_json("blacklist")
+    bot.blacklisted_users = data["blacklistedUsers"]
+    await bot.change_presence(activity=discord.Game(name=f"jew simulator")) # This changes the bots 'activity'
 
 
 @client.group(invoke_without_command=True)
