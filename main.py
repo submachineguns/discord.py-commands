@@ -722,6 +722,7 @@ async def on_member_join(member):
     await channel.send(f"**{member.mention}** welcome to germany")
     role = get(member.guild.roles, name=ROLE)
     await member.add_roles(role)
+
 @client.event
 async def on_member_join(member):
     print(f'{member} has joined a server!')
@@ -798,14 +799,6 @@ async def afk(ctx, reason=None):
 @commands.has_permissions(manage_roles=True)
 @commands.cooldown(1, 2, commands.BucketType.user) 
 async def jail(ctx, member: discord.Member, *, reason='No reason was specified'):
-    if not ctx.invoke_without_command:
-      em = discord.Embed(title = "Jail",color = 0xf28e1c)
-
-      em.add_field(name = "Syntax", value = ";jail (user) <reason>")
-      em.add_field(name = "Example", value = ";jail mp5#4746 dumb")
-
-      await ctx.send(embed = em)
-
     guild = ctx.guild
     mutedRole = discord.utils.get(guild.roles, name="jailed")
 
