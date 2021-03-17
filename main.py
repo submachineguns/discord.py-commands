@@ -87,10 +87,12 @@ async def restart(ctx: commands.Context):
 		os.system('python main.py')
 
 mainshop = [{"name":"Watch","price":100,"description":"Time"},
+			{"name":"Beer","price":500,"description":"Drink"},
             {"name":"Glock","price":1000,"description":"Gun"},
-            {"name":"AK47","price":1000,"description":"Gun"},
+            {"name":"AK47","price":1050,"description":"Gun"},
+			{"name":"Weed","price":2000,"description":"Drugs"},
             {"name":"PC","price":10000,"description":"Gaming"},
-            {"name":"Ferrari","price":99999,"description":"Sports Car"}]
+            {"name":"Supra","price":70000,"description":"Car"}]
 
 @client.command(aliases=['bal'])
 async def balance(ctx):
