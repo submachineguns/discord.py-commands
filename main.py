@@ -30,6 +30,7 @@ intents = discord.Intents.default()
 intents.members = True
 client = commands.Bot(command_prefix = ';', intents=intents)
 client.remove_command('help')
+client.blacklisted_users = []
 ROLE = "user"
 
 
@@ -574,8 +575,73 @@ async def snipe(ctx):
     await ctx.channel.send(embed=embed)
 
 #If the bot sends the embed, but it's empty, it simply means that the deleted message was either a media file or another embed.
+@client.event
+async def on_command_error(ctx, error):
+    #Ignore these errors
+    ignored = (commands.CommandNotFound, commands.UserInputError)
+    if isinstance(error, ignored):
+        return
 
+    #Begin actual error handling
+    if isinstance(error, commands.CommandOnCooldown):
+        m, s = divmod(error.retry_after, 60)
+        h, m = divmod(m, 60)
+        if int(h) == 0 and int(m) == 0:
+            await ctx.send(f' You must wait {int(s)} seconds to use this command!')
+        elif int(h) == 0 and int(m) != 0:
+            await ctx.send(f' You must wait {int(m)} minutes and {int(s)} seconds to use this command!')
+        else:
+            await ctx.send(f' You must wait {int(h)} hours, {int(m)} minutes and {int(s)} seconds to use this command!')
+    elif isinstance(error, commands.CheckFailure):
+        await ctx.send("You don't have permission to use this command")
+    raise error
         
+
+@client.event
+async def on_ready():
+    print(f"-----\nLogged in as: {client.user.name} : {client.user.id}\n-----\nMy current prefix is: -\n-----")
+    data = read_json("blacklist")
+    client.blacklisted_users = data["blacklistedUsers"]
+    await client.change_presence(activity=discord.Game(name=f"Hi, my names {client.user.name}.\nUse - to interact with me!")) # This changes the bots 'activity'
+
+@client.event
+async def on_message(message):
+    #ignore ourselves
+    if message.author.id == client.user.id:
+        return
+
+    #blacklist system
+    if message.author.id in client.blacklisted_users:
+        return
+
+    if message.content.lower().startswith("idc"):
+        await message.channel.send("https://media.discordapp.net/attachments/819272097930412122/819973602195013652/imdeadaf.gif")
+
+    #await client.process_commands(message)
+
+@client.command()
+@commands.is_owner()
+async def blacklist(ctx, user: discord.Member):
+    if ctx.message.author.id == user.id:
+        await ctx.send("Hey, you cannot blacklist yourself!")
+        return
+
+    client.blacklisted_users.append(user.id)
+    data = read_json("blacklist")
+    data["blacklistedUsers"].append(user.id)
+    write_json(data, "blacklist")
+    await ctx.send(f"Hey, I have blacklisted {user.name} for you.")
+
+@client.command()
+@commands.is_owner()
+async def unblacklist(ctx, user: discord.Member):
+    client.blacklisted_users.remove(user.id)
+    data = read_json("blacklist")
+    data["blacklistedUsers"].remove(user.id)
+    write_json(data, "blacklist")
+    await ctx.send(f"Hey, I have unblacklisted {user.name} for you.")
+
+
 @client.command()
 @commands.cooldown(1, 3, commands.BucketType.user)
 @commands.has_permissions(manage_messages=True)
