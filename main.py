@@ -313,6 +313,43 @@ async def on_command_error(ctx,error):
     elif isinstance(error, commands.CheckFailure):
         await ctx.send("You don't have permission to use this command")
     raise error
+# Load command to manage our "Cogs" or extensions
+@client.command()
+async def load(ctx, extension):
+    # Check if the user running the command is actually the owner of the bot 
+    if ctx.author.id == OWNERID:
+        client.load_extension(f'Cogs.{extension}')
+        await ctx.send(f"Enabled the Cog!")
+    else:
+        await ctx.send(f"You are not cool enough to use this command")
+
+# Unload command to manage our "Cogs" or extensions
+@client.command()
+async def unload(ctx, extension):
+    # Check if the user running the command is actually the owner of the bot 
+    if ctx.author.id == OWNERID:
+        client.unload_extension(f'Cogs.{extension}')
+        await ctx.send(f"Disabled the Cog!")
+    else:
+        await ctx.send(f"You are not cool enough to use this command")
+
+# Reload command to manage our "Cogs" or extensions
+@client.command(name = "reload")
+async def reload_(ctx, extension):
+    # Check if the user running the command is actually the owner of the bot 
+    if ctx.author.id == OWNERID:
+        client.reload_extension(f'Cogs.{extension}')
+        await ctx.send(f"Reloaded the Cog!") 
+    else:
+        await ctx.send(f"You are not cool enough to use this command")
+
+# Automatically load all the .py files in the Cogs folder
+for filename in os.listdir('./Cogs'):
+    if filename.endswith('.py'):
+        try:
+            client.load_extension(f'Cogs.{filename[:-3]}')
+        except Exception:
+            raise Exception
 
 @client.command()
 async def buy(ctx,item,amount = 1):
