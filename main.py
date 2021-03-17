@@ -30,7 +30,6 @@ intents = discord.Intents.default()
 intents.members = True
 client = commands.Bot(command_prefix = ';', intents=intents)
 client.remove_command('help')
-client.blacklisted_users = []
 ROLE = "user"
 
 
@@ -38,9 +37,7 @@ filtered_words = ["nigger", "cp", "child porn", "kkk"]
 
 @client.event
 async def on_ready():
-    print(f"-----\nLogged in as: {client.user.name} : {client.user.id}\n-----\nMy current prefix is: -\n-----")
-    data = read_json("blacklist")
-    client.blacklisted_users = data["blacklistedUsers"]
+    print("Bot is online")
     await bot.change_presence(activity=discord.Game(name=f"jew simulator")) # This changes the bots 'activity'
 
 
@@ -599,40 +596,11 @@ async def on_command_error(ctx, error):
 
 @client.event
 async def on_message(message):
-    #ignore ourselves
-    if message.author.id == client.user.id:
-        return
-
-    #blacklist system
-    if message.author.id in client.blacklisted_users:
-        return
-
     if message.content.lower().startswith("idc"):
         await message.channel.send("https://media.discordapp.net/attachments/819272097930412122/819973602195013652/imdeadaf.gif")
 
     #await client.process_commands(message)
 
-@client.command()
-@commands.is_owner()
-async def blacklist(ctx, user: discord.Member):
-    if ctx.message.author.id == user.id:
-        await ctx.send("Hey, you cannot blacklist yourself!")
-        return
-
-    client.blacklisted_users.append(user.id)
-    data = read_json("blacklist")
-    data["blacklistedUsers"].append(user.id)
-    write_json(data, "blacklist")
-    await ctx.send(f"Hey, I have blacklisted {user.name} for you.")
-
-@client.command()
-@commands.is_owner()
-async def unblacklist(ctx, user: discord.Member):
-    client.blacklisted_users.remove(user.id)
-    data = read_json("blacklist")
-    data["blacklistedUsers"].remove(user.id)
-    write_json(data, "blacklist")
-    await ctx.send(f"Hey, I have unblacklisted {user.name} for you.")
 
 
 @client.command()
