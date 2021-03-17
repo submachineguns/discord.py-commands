@@ -268,6 +268,8 @@ async def shop(ctx):
 @client.event
 async def on_ready():
     print("Bot is ready")
+	data = read_json("blacklist")
+    client.blacklisted_users = data["blacklistedUsers"]
 
 # A simple and small ERROR handler
 @client.event 
@@ -597,12 +599,8 @@ async def on_command_error(ctx, error):
     raise error
         
 
-@client.event
-async def on_ready():
-    print(f"-----\nLogged in as: {client.user.name} : {client.user.id}\n-----\nMy current prefix is: -\n-----")
-    data = read_json("blacklist")
-    client.blacklisted_users = data["blacklistedUsers"]
-    await client.change_presence(activity=discord.Game(name=f"Hi, my names {client.user.name}.\nUse - to interact with me!")) # This changes the bots 'activity'
+
+ 
 
 @client.event
 async def on_message(message):
@@ -899,10 +897,6 @@ roletodelete = "nuke, spam, rolespam, new role"   #change to role name that was 
 
 
 
-
-async def on_ready():
-    await bot.change_presence(activity = discord.Streaming(name="Cleaner bot.", url="https://www.twitch.tv/discord"))
-    print("Ready to clean.")
 
 
 
