@@ -40,7 +40,7 @@ filtered_words = ["nigger", "cp", "child porn", "kkk"]
 async def on_ready():
     print(f"-----\nLogged in as: {client.user.name} : {client.user.id}\n-----\nMy current prefix is: -\n-----")
     data = read_json("blacklist")
-    boclientt.blacklisted_users = data["blacklistedUsers"]
+    client.blacklisted_users = data["blacklistedUsers"]
     await bot.change_presence(activity=discord.Game(name=f"jew simulator")) # This changes the bots 'activity'
 
 
