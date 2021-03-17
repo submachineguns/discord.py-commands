@@ -772,9 +772,7 @@ async def on_member_remove(member):
     print(f'{member} has left a server!')
 
 
-@client.command()
-async def say(ctx, *, say):
-    await ctx.send(say)
+
 
 @client.command()
 async def afk(ctx, reason=None):
