@@ -77,7 +77,7 @@ async def unjail(ctx):
     await ctx.send(embed = em)
 
 
-@commands.command
+@client.command()
 async def btc(ctx):
 	r = requests.get('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR')
 	r = r.json()
