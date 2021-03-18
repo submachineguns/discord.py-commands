@@ -49,7 +49,7 @@ async def help(ctx):
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
-    em.add_field(name = "Utility", value = "``snipe, av,``", inline=False)
+    em.add_field(name = "Utility", value = "``snipe, av, btc*``", inline=False)
 
     await ctx.send(embed = em)
 
@@ -77,13 +77,13 @@ async def unjail(ctx):
     await ctx.send(embed = em)
 
 
-@client.command()
+@client.command(aliases=['bitcoin'])
 async def btc(ctx):
 	r = requests.get('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR')
 	r = r.json()
 	usd = r['USD']
 	eur = r['EUR']
-	embed = discord.Embed(color=(0xb699ff))
+	embed = discord.Embed(color=(0xf2a900))
 	embed.description=f'**{str(usd)}$ USD**'
 	embed.set_author(name='Bitcoin', icon_url='https://media.discordapp.net/attachments/806971294795956254/808381684012810310/600.png?width=480&height=480')
 	embed.set_footer(text='updated bitcoin prices to this hour')
