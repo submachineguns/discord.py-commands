@@ -97,7 +97,7 @@ async def eth(ctx):
 	eur = r['EUR']
 	embed = discord.Embed(color=(0x3c3c3d))
 	embed.description=f'**{str(usd)}$ USD**'
-	embed.set_author(name='Ethereum', icon_url='https://media.discordapp.net/attachments/806971294795956254/808381684012810310/600.png?width=480&height=480')
+	embed.set_author(name='Ethereum', icon_url='https://www.dlf.pt/dfpng/middlepng/417-4179956_ethereum-icon-line-symbol-isolated-vector-stock-vector.png')
 	await ctx.send(embed=embed)
 
 @client.command(brief='Restarts the bot.')
