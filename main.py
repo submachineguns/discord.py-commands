@@ -587,7 +587,7 @@ async def snipe(ctx):
         await ctx.channel.send("Couldn't find a message to snipe!")
         return
 
-    embed = discord.Embed(description=contents, color=discord.Color.purple(), timestamp=time)
+    embed = discord.Embed(description=contents, color = 0xf28e1c, timestamp=time)
     embed.set_author(name=f"{author.name}#{author.discriminator}", icon_url=author.avatar_url)
     embed.set_footer(text=f"Deleted in : #{channel_name}")
 
