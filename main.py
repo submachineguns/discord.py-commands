@@ -292,24 +292,6 @@ async def shop(ctx):
 # A simple and small ERROR handler
 @client.event 
 async def on_command_error(ctx,error):
-    embed = discord.Embed(
-    title='',
-    color=discord.Color.red())
-    if isinstance(error, commands.CommandNotFound):
-        pass
-    if isinstance(error, commands.MissingPermissions):
-        embed.add_field(name=f'Invalid Permissions', value=f'You dont have {error.missing_perms} permissions.')
-        await ctx.send(embed=embed)
-    else:
-        embed.add_field(name = f'<:deny:817896473852117034> Terminal Error', value = f"```{error}```")
-        await ctx.send(embed = embed)
-        raise error
-	    #Ignore these errors
-    ignored = (commands.CommandNotFound, commands.UserInputError)
-    if isinstance(error, ignored):
-        return
-
-    #Begin actual error handling
     if isinstance(error, commands.CommandOnCooldown):
         m, s = divmod(error.retry_after, 60)
         h, m = divmod(m, 60)
