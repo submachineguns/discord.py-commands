@@ -663,6 +663,12 @@ async def ban(ctx, member: discord.Member, *, reason=None):
         except:
               await ctx.send(f"`{ctx.author}` I require `Administrator` to perform that action") 
     
+@ban.error
+async def ban_error(ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            emb = discord.Embed(description=f":warning: {ctx.author.mention}: Please specify a member", color=0xf1c40f)
+            await ctx.send(embed=emb)
+
 @client.command()
 async def wanted(ctx, user: discord.Member = None):
     if user == None:
