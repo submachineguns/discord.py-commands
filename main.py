@@ -292,7 +292,6 @@ async def shop(ctx):
 # A simple and small ERROR handler
 @client.event 
 async def on_command_error(ctx,error):
-    async def on_command_error(ctx,error):
     embed = discord.Embed(
     title='',
     color=discord.Color.red())
@@ -305,7 +304,7 @@ async def on_command_error(ctx,error):
         embed.add_field(name = f':x: Terminal Error', value = f"```{error}```")
         await ctx.send(embed = embed)
         raise error
-        
+
     if isinstance(error, commands.CommandOnCooldown):
         m, s = divmod(error.retry_after, 60)
         h, m = divmod(m, 60)
