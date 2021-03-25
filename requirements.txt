@@ -1,6 +1,5 @@
 discord
 asyncio
-youtube_dl
 requests
 datetime
 Pillow
