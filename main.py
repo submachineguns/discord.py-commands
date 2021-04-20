@@ -287,7 +287,10 @@ async def shop(ctx):
     await ctx.send(embed = em)
 
 
-    
+@client.command(aliases=['av'])
+async def avatar(ctx,*, avamember):
+    user = client.get_user(avamember)
+    await ctx.send(f"{user.avatar_url}")   
 
 # A simple and small ERROR handler
 @client.event 
