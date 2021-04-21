@@ -43,13 +43,13 @@ async def on_ready():
 
 @client.group(invoke_without_command=True)
 async def help(ctx):
-    em = discord.Embed(title = ":beer:  Help ", description = f"``* means the command has a subcommand``",color = 0xf28e1c)
+    em = discord.Embed(title = ":beer:  Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xf28e1c)
 
     em.add_field(name = "\n \nModeration", value = "``ban, unban, kick, jail, unjail, bc``", inline=False)
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
-    em.add_field(name = "Utility", value = "``snipe, av, btc*``", inline=False)
+    em.add_field(name = "Utility", value = "``snipe, av*, btc*``", inline=False)
 
     await ctx.send(embed = em)
 
@@ -288,9 +288,12 @@ async def shop(ctx):
 
 
 @client.command(aliases=['av'])
-async def avatar(ctx,*, avamember):
-    user = client.get_user(avamember)
-    await ctx.send(f"{user.avatar_url}")   
+async def avatar(ctx, *, member: discord.Member = None):
+    member = ctx.author if not member else member
+    embed = discord.Embed(title = f"{member.name}'s avatar", color = member.color , timestamp= ctx.message.created_at)
+    embed.set_image(url=member.avatar_url)
+    embed.set_footer(text=f"Requested by : {ctx.author}",icon_url=ctx.author.avatar_url)  
+    await ctx.send(embed=embed)
 
 # A simple and small ERROR handler
 @client.event 
