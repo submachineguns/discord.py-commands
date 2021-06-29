@@ -45,11 +45,11 @@ async def on_ready():
 async def help(ctx):
     em = discord.Embed(title = ":beer:  Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xf28e1c)
 
-    em.add_field(name = "\n \nModeration", value = "``ban, unban, kick, jail, unjail, bc``", inline=False)
+    em.add_field(name = "\n \nModeration", value = "``ban, unban, kick, jail, unjail, purge, bc``", inline=False)
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
-    em.add_field(name = "Utility", value = "``snipe, av*, btc*``", inline=False)
+    em.add_field(name = "Utility", value = "``snipe, av*, btc*, role``", inline=False)
 
     await ctx.send(embed = em)
 
