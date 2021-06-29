@@ -38,7 +38,7 @@ filtered_words = ["nigger", "cp", "child porn", "kkk"]
 @client.event
 async def on_ready():
     print("Bot is online")
-    await client.change_presence(activity=discord.Game(name=f"jew simulator")) # This changes the bots 'activity'
+    await client.change_presence(activity=discord.Game(name=f"world simulator")) # This changes the bots 'activity'
 
 
 @client.group(invoke_without_command=True)
