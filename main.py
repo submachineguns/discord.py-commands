@@ -63,9 +63,12 @@ async def jail(ctx):
 
     await ctx.send(embed = em)
 
-
-
-
+@help.command()
+async def role(ctx):
+    member = message.author
+    var = discord.utils.get(message.guild.roles, name = "role name")
+    member.add_role(var)
+    
 @help.command()
 async def unjail(ctx):
 
@@ -76,6 +79,17 @@ async def unjail(ctx):
 
     await ctx.send(embed = em)
 
+@client.command('role')
+@commands.has_permissions(administrator=True) #permissions
+async def role(ctx, user : discord.Member, *, role : discord.Role):
+  if role.position > ctx.author.top_role.position: #if the role is above users top role it sends error
+    return await ctx.send('**:x: | That role is above your top role!**') 
+  if role in user.roles:
+      await user.remove_roles(role) #removes the role if user already has
+      await ctx.send(f"Removed {role} from {user.mention}")
+  else:
+      await user.add_roles(role) #adds role if not already has it
+      await ctx.send(f"Added {role} to {user.mention}") 
 
 @client.command(aliases=['bitcoin'])
 async def btc(ctx):
