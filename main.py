@@ -33,22 +33,7 @@ intents.members = True
 client = commands.Bot(command_prefix = ';', intents=intents)
 client.remove_command('help')
 ROLE = "user"
-driver = ("chromedriver.exe")
-driver = ('https://www.cleverbot.com')
 
-
-def get_response(message):
-    driver.find_element_by_xpath('//*[@id="avatarform"]/input[1]').send_keys(message + Keys.RETURN)
-    while True:
-        try:
-            driver.find_element_by_xpath('//*[@id="snipTextIcon"]')
-            break
-        except:
-            continue
-    response = driver.find_element_by_xpath('//*[@id="line1"]/span[1]').text
-    return response
-
-driver.find_element_by_id('noteb').click()
 
 filtered_words = ["nigger", "cp", "child porn", "kkk"]
 
