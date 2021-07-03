@@ -66,7 +66,7 @@ async def on_message(message):
         with open('users.json', 'w') as f:
             json.dump(users, f)
 
-    await bot.process_commands(message)
+    await client.process_commands(message)
 
 
 async def update_data(users, user):
@@ -629,8 +629,7 @@ async def on_message(msg):
     for word in filtered_words:
         if word in msg.content:
             await msg.delete()
-
-    await client.process_commands(msg)
+            await client.process_commands(msg)
 
 
 client.sniped_messages = {}
