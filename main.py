@@ -800,6 +800,34 @@ async def afk(ctx, reason=None):
 
     await ctx.author.edit(nick=f'[AFK]{ctx.author.display_name}')
 
+@client.command()
+async def play(ctx, url : str):
+    song_there = os.path.isfile("song.mp3")
+    try:
+        if song_there:
+            os.remove("song.mp3")
+    except PermissionError:
+        await ctx.send("Wait for the current playing music to end or use the 'stop' command")
+        return
+
+    voiceChannel = discord.utils.get(ctx.guild.voice_channels, name='General')
+    await voiceChannel.connect()
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
+    for file in os.listdir("./"):
+        if file.endswith(".mp3"):
+            os.rename(file, "song.mp3")
+    voice.play(discord.FFmpegPCMAudio("song.mp3"))
 
 
 
@@ -831,14 +859,13 @@ async def jail(ctx, member: discord.Member, *, reason='No reason was specified')
 @commands.cooldown(1, 2, commands.BucketType.user) 
 async def unjail(ctx, member: discord.Member= None, *, reason='No reason was specified'):
     guild = ctx.guild
+    await ctx.send(f":thumbsup:")
     mutedRole = discord.utils.get(ctx.guild.roles, name="jailed")
     unretard = discord.Embed(
         title='Unjailed',
         description = f"You have been unjailed in {ctx.message.guild.name}\n \n Reason: {reason}",
         color= discord.Color.green()
     )
-
-    await ctx.send(f":thumbsup:")
     await member.remove_roles(mutedRole)
     await member.send(embed=unretard)
 
