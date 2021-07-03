@@ -800,7 +800,7 @@ async def afk(ctx, reason=None):
 
     await ctx.author.edit(nick=f'[AFK]{ctx.author.display_name}')
 
-client.load_extension("music")
+client.load_extension("music.py")
 
 
 @client.command(description="Mutes the specified user.", invoke_without_command=True)
