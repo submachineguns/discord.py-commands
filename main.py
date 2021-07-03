@@ -22,6 +22,8 @@ from discord.voice_client import VoiceClient
 import random
 from asyncio import sleep as s 
 from asyncio import sleep 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 init(convert=True)
 
 
@@ -31,6 +33,20 @@ intents.members = True
 client = commands.Bot(command_prefix = ';', intents=intents)
 client.remove_command('help')
 ROLE = "user"
+driver = webdriver.Chrome()
+driver.get('https://www.cleverbot.com')
+driver.find_element_by_id('noteb').click()
+
+def get_response(message):
+    driver.find_element_by_xpath('//*[@id="avatarform"]/input[1]').send_keys(message + Keys.RETURN)
+    while True:
+        try:
+            driver.find_element_by_xpath('//*[@id="snipTextIcon"]')
+            break
+        except:
+            continue
+    response = driver.find_element_by_xpath('//*[@id="line1"]/span[1]').text
+    return response
 
 
 filtered_words = ["nigger", "cp", "child porn", "kkk"]
@@ -39,6 +55,7 @@ filtered_words = ["nigger", "cp", "child porn", "kkk"]
 async def on_ready():
     print("Bot is online")
     await client.change_presence(activity=discord.Game(name=f"world simulator")) # This changes the bots 'activity'
+
 
 
 @client.group(invoke_without_command=True)

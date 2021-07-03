@@ -7,3 +7,5 @@ colorama
 PyNaCl
 youtube-dl
 ffmpeg
+selenium
+Keys
