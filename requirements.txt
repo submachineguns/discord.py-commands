@@ -8,3 +8,4 @@ PyNaCl
 youtube-dl
 ffmpeg
 selenium
+chromedriver
