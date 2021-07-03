@@ -33,7 +33,7 @@ intents.members = True
 client = commands.Bot(command_prefix = ';', intents=intents)
 client.remove_command('help')
 ROLE = "user"
-driver = webdriver.Chrome()
+driver = ("chromedriver.exe")
 driver.get('https://www.cleverbot.com')
 driver.find_element_by_id('noteb').click()
 
