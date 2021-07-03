@@ -800,11 +800,7 @@ async def afk(ctx, reason=None):
 
     await ctx.author.edit(nick=f'[AFK]{ctx.author.display_name}')
 
-@commands.Cog.listener()
-async def on_member_join(self, member):
-    channel = member.guild.system_channel
-    if channel is not None:
-        await channel.send('Welcome {0.mention}.'.format(member))
+client.load_extension("music")
 
 
 @client.command(description="Mutes the specified user.", invoke_without_command=True)
