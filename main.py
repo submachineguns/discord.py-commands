@@ -793,7 +793,7 @@ async def afk(ctx, reason=None):
         reason = 'None'
 
     afk[f'{ctx.author.id}']['AFK'] = 'True'
-    await ctx.send(f'{ctx.author.display_name} is now AFK, Reason: {reason}{reason}{reason}')
+    await ctx.send(f'{ctx.author.display_name} is now AFK, Reason: {reason}')
 
     with open('afk.json', 'w') as f:
         json.dump(afk, f)
