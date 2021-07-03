@@ -9,9 +9,10 @@ from PIL import ImageFont
 from PIL import ImageDraw
 from itertools import cycle
 import traceback
+import time
+import logging
 import requests
 import sys
-import json 
 import os
 import shutil
 from os import system
