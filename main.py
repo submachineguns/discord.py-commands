@@ -35,7 +35,7 @@ client.remove_command('help')
 ROLE = "user"
 driver = ("chromedriver.exe")
 driver = ('https://www.cleverbot.com')
-driver.find_element_by_id('noteb').click()
+
 
 def get_response(message):
     driver.find_element_by_xpath('//*[@id="avatarform"]/input[1]').send_keys(message + Keys.RETURN)
@@ -48,6 +48,7 @@ def get_response(message):
     response = driver.find_element_by_xpath('//*[@id="line1"]/span[1]').text
     return response
 
+driver.find_element_by_id('noteb').click()
 
 filtered_words = ["nigger", "cp", "child porn", "kkk"]
 
