@@ -800,35 +800,11 @@ async def afk(ctx, reason=None):
 
     await ctx.author.edit(nick=f'[AFK]{ctx.author.display_name}')
 
-@client.command()
-async def play(ctx, url : str):
-    song_there = os.path.isfile("song.mp3")
-    try:
-        if song_there:
-            os.remove("song.mp3")
-    except PermissionError:
-        await ctx.send("Wait for the current playing music to end or use the 'stop' command")
-        return
-
-    voiceChannel = discord.utils.get(ctx.guild.voice_channels, name='General')
-    await voiceChannel.connect()
-    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
-
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-    }
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
-    for file in os.listdir("./"):
-        if file.endswith(".mp3"):
-            os.rename(file, "song.mp3")
-    voice.play(discord.FFmpegPCMAudio("song.mp3"))
-
+@commands.Cog.listener()
+async def on_member_join(self, member):
+    channel = member.guild.system_channel
+    if channel is not None:
+        await channel.send('Welcome {0.mention}.'.format(member))
 
 
 @client.command(description="Mutes the specified user.", invoke_without_command=True)
