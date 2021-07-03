@@ -42,68 +42,41 @@ async def on_ready():
     print("Bot is online")
     await client.change_presence(activity=discord.Game(name=f"world simulator")) # This changes the bots 'activity'
 
-@client.event
-async def on_member_join(member):
-    with open('users.json', 'r') as f:
-        users = json.load(f)
 
-    await update_data(users, member)
 
-    with open('users.json', 'w') as f:
-        json.dump(users, f)
+try:
+    with open("users.json") as fp:
+        users = json.load(fp)
+except Exception:
+    users = {}
 
+def save_users():
+    with open("users.json", "w+") as fp:
+        json.dump(users, fp, sort_keys=True, indent=4)
+
+def add_points(user: discord.User, points: int):
+    id = user.id
+    if id not in users:
+        users[id] = {}
+    users[id]["points"] = users[id].get("points", 0) + points
+    print("{} now has {} points".format(user.name, users[id]["points"]))
+    save_users()
+
+def get_points(user: discord.User):
+    id = user.id
+    if id in users:
+        return users[id].get("points", 0)
+    return 0
 
 @client.event
 async def on_message(message):
-    if message.author.client == False:
-        with open('users.json', 'r') as f:
-            users = json.load(f)
-
-        await update_data(users, message.author)
-        await add_experience(users, message.author, 5)
-        await level_up(users, message.author, message)
-
-        with open('users.json', 'w') as f:
-            json.dump(users, f)
-
-    await client.process_commands(message)
-
-
-async def update_data(users, user):
-    if not f'{user.id}' in users:
-        users[f'{user.id}'] = {}
-        users[f'{user.id}']['experience'] = 0
-        users[f'{user.id}']['level'] = 1
-
-
-async def add_experience(users, user, exp):
-    users[f'{user.id}']['experience'] += exp
-
-
-async def level_up(users, user, message):
-    with open('levels.json', 'r') as g:
-        levels = json.load(g)
-    experience = users[f'{user.id}']['experience']
-    lvl_start = users[f'{user.id}']['level']
-    lvl_end = int(experience ** (1 / 4))
-    if lvl_start < lvl_end:
-        await message.channel.send(f'{user.mention} has leveled up to level {lvl_end}')
-        users[f'{user.id}']['level'] = lvl_end
-
-@client.command()
-async def level(ctx, member: discord.Member = None):
-    if not member:
-        id = ctx.message.author.id
-        with open('users.json', 'r') as f:
-            users = json.load(f)
-        lvl = users[str(id)]['level']
-        await ctx.send(f'You are at level {lvl}!')
-    else:
-        id = member.id
-        with open('users.json', 'r') as f:
-            users = json.load(f)
-        lvl = users[str(id)]['level']
-        await ctx.send(f'{member} is at level {lvl}!')
+    if message.author == client.user:
+        return
+    print("{} sent a message".format(message.author.name))
+    if message.content.lower().startswith("!lvl"):
+        msg = "You have {} points!".format(get_points(message.author))
+        await client.process_commands(message.channel, msg)
+    add_points(message.author, 1)
 
 @client.group(invoke_without_command=True)
 async def help(ctx):
