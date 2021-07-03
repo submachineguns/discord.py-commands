@@ -22,8 +22,6 @@ from discord.voice_client import VoiceClient
 import random
 from asyncio import sleep as s 
 from asyncio import sleep 
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 init(convert=True)
 
 
