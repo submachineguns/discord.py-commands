@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from random import choice
-
+import discord 
 bot = discord.Client()
 
 from ..db import db
