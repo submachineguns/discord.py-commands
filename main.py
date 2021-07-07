@@ -869,6 +869,11 @@ cogs = ["music"]
 for cog in cogs:
     client.load_extension("music")
 
+cogs = ["reactions"]
+
+for cog in cogs:
+    client.load_extension("reactions")
+
 
 @client.command(description="Mutes the specified user.", invoke_without_command=True)
 @commands.has_permissions(manage_roles=True)
