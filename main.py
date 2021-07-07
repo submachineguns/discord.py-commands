@@ -892,15 +892,7 @@ async def on_message_edit(message_before, message_after):
     channel = client.get_channel(815792270921433128)
     await channel.send(channel, embed=embed)
 
-async def save_audit_logs(guild):
-     with open(f'audit_logs_{guild.name}', 'w+') as f:
-          async for entry in guild.audit_logs(limit=100):
-               f.write('{0.user} did {0.action} to {0.target}'.format(entry))
 
-@client.event
-async def on_message(message):
-     if message.content.startswith('audit'):
-         await save_audit_logs(message.channel.guild)
 
 @client.command(description="Mutes the specified user.", invoke_without_command=True)
 @commands.has_permissions(manage_roles=True)
