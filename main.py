@@ -870,6 +870,29 @@ for cog in cogs:
     client.load_extension("music")
 
 
+channelid = 815792270921433128
+
+@client.event
+async def on_message_delete(message):
+    embed = discord.Embed(title="{} deleted a message".format(message.author.name),
+                          description="", color=0xFF0000)
+    embed.add_field(name=message.content, value="This is the message that he has deleted",
+                    inline=True)
+    channel = client.get_channel(channelid)
+    await channel.send(channel, embed=embed)
+
+
+@client.event
+async def on_message_edit(message_before, message_after):
+    embed = discord.Embed(title="{} edited a message".format(message_before.author.name),
+                          description="", color=0xFF0000)
+    embed.add_field(name=message_before.content, value="This is the message before any edit",
+                    inline=True)
+    embed.add_field(name=message_after.content, value="This is the message after the edit",
+                    inline=True)
+    channel = client.get_channel(channelid)
+    await channel.send(channel, embed=embed)
+
 @client.command(description="Mutes the specified user.", invoke_without_command=True)
 @commands.has_permissions(manage_roles=True)
 @commands.cooldown(1, 2, commands.BucketType.user) 
