@@ -870,7 +870,7 @@ for cog in cogs:
     client.load_extension("music")
 
 
-channelid = 815792270921433128
+channelid = ("815792270921433128")
 
 @client.event
 async def on_message_delete(message):
