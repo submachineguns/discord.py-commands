@@ -108,7 +108,7 @@ async def level(ctx, member: discord.Member = None):
 
 @client.group(invoke_without_command=True)
 async def help(ctx):
-    em = discord.Embed(title = ":beer:  Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xf28e1c)
+    em = discord.Embed(title = "Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xF2684A)
 
     em.add_field(name = "\n \nModeration", value = "``ban, unban, kick, jail, unjail, purge, bc``", inline=False)
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
@@ -648,7 +648,7 @@ async def snipe(ctx):
         await ctx.channel.send("Couldn't find a message to snipe!")
         return
 
-    embed = discord.Embed(description=contents, color = 0xf28e1c, timestamp=time)
+    embed = discord.Embed(description=contents, color = 0xF2684A, timestamp=time)
     embed.set_author(name=f"{author.name}#{author.discriminator}", icon_url=author.avatar_url)
     embed.set_footer(text=f"Deleted in : #{channel_name}")
 
