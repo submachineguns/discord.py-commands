@@ -30,9 +30,6 @@ init(convert=True)
 queue = []
 intents = discord.Intents.default()
 intents.members = True
-client.remove_command('help')
-ROLE = "user"
-
 def get_prefix(client,message):
     
     with open("prefixes.json", "r") as f:
@@ -41,6 +38,9 @@ def get_prefix(client,message):
     return prefixes[str(message.guild.id)]
 
 client = commands.Bot(command_prefix = get_prefix, intents=intents)
+client.remove_command('help')
+ROLE = "user"
+
 
 @client.event
 async def on_guild_join(guild):
