@@ -58,12 +58,12 @@ async def on_guild_join(guild):
 
 @client.command()
 @commands.has_permissions(administrator = True)
-async def prefix(ctx, prefix, guild):
+async def prefix(ctx, prefix):
 
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
 
-    prefixes[str(guild.id)] = prefix 
+    prefixes[str(ctx.guild.id)] = prefix 
 
     with open("prefixes.json", "w") as f:
         json.dump(prefixes,f) 
