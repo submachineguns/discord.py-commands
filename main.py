@@ -851,26 +851,20 @@ for cog in cogs:
     client.load_extension("music")
 
 
-snipe_message_author = {}
-snipe_message_content = {}
- 
-@client.event
-async def on_message_delete(message):
-     snipe_message_author[message.channel.id] = message.author
-     snipe_message_content[message.channel.id] = message.content
-     await sleep(60)
-     del snipe_message_author[message.channel.id]
-     del snipe_message_content[message.channel.id]
- 
 @client.command()
 async def snipe(ctx):
-    channel = ctx.channel 
     try:
-        snipeEmbed = discord.Embed(title=f"#{channel.name}", description = snipe_message_content[channel.id])
-        snipeEmbed.set_footer(text=f"Deleted by {snipe_message_author[channel.id]}")
-        await ctx.send(embed = snipeEmbed)
+        contents, author, channel_name, time = client.sniped_messages[ctx.guild.id]
+        
     except:
-        await ctx.send(f"There are no deleted messages in #{channel.name}")
+        await ctx.channel.send("Couldn't find a message to snipe!")
+        return
+
+    embed = discord.Embed(description=contents, color=discord.Color.purple(), timestamp=time)
+    embed.set_author(name=f"{author.name}#{author.discriminator}", icon_url=author.avatar_url)
+    embed.set_footer(text=f"Deleted in : #{channel_name}")
+
+    await ctx.channel.send(embed=embed)
 
 @client.event
 async def on_message_delete(message):
