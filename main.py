@@ -30,45 +30,9 @@ init(convert=True)
 queue = []
 intents = discord.Intents.default()
 intents.members = True
-def get_prefix(client,message):
-    
-    with open("prefixes.json", "r") as f:
-        prefixes = json.load(f)
-
-    return prefixes[str(message.guild.id)]
-
-client = commands.Bot(command_prefix = get_prefix, intents=intents)
+client = commands.Bot(command_prefix = ";", intents=intents)
 client.remove_command('help')
 ROLE = "user"
-
-
-@client.event
-async def on_guild_join(guild):
-
-
-
-    with open("prefixes.json", "r") as f:
-        prefixes = json.load(f)
-
-    prefixes[str(guild.id)] = ";"
-
-    with open("prefixes.json", "w") as f:
-        json.dump(prefixes,f)
-
-
-@client.command()
-@commands.has_permissions(administrator = True)
-async def prefix(ctx, prefix):
-
-    with open("prefixes.json", "r") as f:
-        prefixes = json.load(f)
-
-    prefixes[str(ctx.guild.id)] = prefix 
-
-    with open("prefixes.json", "w") as f:
-        json.dump(prefixes,f) 
-
-    await ctx.send(f"The prefix was changed to {prefix}") 
 
 
 
