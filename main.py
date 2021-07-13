@@ -955,7 +955,7 @@ async def lockdown(ctx, channel: discord.TextChannel=None):
             overwrites = channel.overwrites[ctx.guild.default_role]
             overwrites.send_messages = True
             await channel.set_permissions(ctx.guild.default_role, overwrite=overwrites)
-            await ctx.send(f"I have removed **{channel.name}** from lockdown.")
+            await ctx.send(f"I have unlocked **{channel.name}**")
 
 
 
