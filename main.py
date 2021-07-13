@@ -937,7 +937,7 @@ async def unjail(ctx, member: discord.Member= None, *, reason='No reason was spe
 @commands.guild_only()
 @commands.has_guild_permissions(manage_channels=True)
 @commands.bot_has_guild_permissions(manage_channels=True)
-async def lockdown(self, ctx, channel: discord.TextChannel=None):
+async def lockdown(ctx, channel: discord.TextChannel=None):
         channel = channel or ctx.channel
 
         if ctx.guild.default_role not in channel.overwrites:
