@@ -695,6 +695,17 @@ async def ban_error(ctx, error):
             emb = discord.Embed(description=f":warning: {ctx.author.mention}: Please specify a member", color=0xf1c40f)
             await ctx.send(embed=emb)
 
+@client.command
+async def massunban(ctx):
+    banlist = await ctx.guild.bans()
+    for users in banlist:
+        try:
+            await ctx.guild.unba(user=users.user)
+        except:
+            pass
+    await ctx.send("Mass Unbanning")
+
+
 @client.command()
 async def wanted(ctx, user: discord.Member = None):
     if user == None:
