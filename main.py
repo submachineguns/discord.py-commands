@@ -402,7 +402,7 @@ async def on_command_error(ctx,error):
         else:
             await ctx.send(f' You must wait {int(h)} hours, {int(m)} minutes and {int(s)} seconds to use this command!')
     elif isinstance(error, commands.CheckFailure):
-        emb = discord.Embed(description=f"<:deny:865154334089674762> {ctx.author.mention}: You don't have permission", color=0xeb4949)
+        emb = discord.Embed(description=f"<:deny:865155819477532672> {ctx.author.mention}: You don't have permission", color=0xeb4949)
         await ctx.send(embed=emb)
     raise error
 
