@@ -124,9 +124,9 @@ async def help(ctx):
 
 
 
-@help.command()a
+@help.command()
 async def jail(ctx):
-a
+
     em = discord.Embed(title = "Syntax", description = ";jail (user) <reason>",color = 0xf28e1c)
 
 
