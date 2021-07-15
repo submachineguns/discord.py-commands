@@ -12,6 +12,7 @@ import traceback
 import time
 import logging
 import requests
+from antispam import AntiSpamHandler
 import sys
 import os
 import shutil
@@ -33,6 +34,7 @@ intents.members = True
 client = commands.Bot(command_prefix = ";", intents=intents)
 client.remove_command('help')
 ROLE = "user"
+client.handler = AntiSpamHandler(client)
 
 
 
@@ -853,10 +855,7 @@ cogs = ["music"]
 for cog in cogs:
     client.load_extension("music")
 
-cogs = ["mod"]
 
-for cog in cogs:
-    client.load_extension("mod")
 
 
 @client.command()
