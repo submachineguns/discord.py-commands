@@ -402,7 +402,8 @@ async def on_command_error(ctx,error):
         else:
             await ctx.send(f' You must wait {int(h)} hours, {int(m)} minutes and {int(s)} seconds to use this command!')
     elif isinstance(error, commands.CheckFailure):
-        await ctx.send("You don't have permission to use this command")
+        emb = discord.Embed(description=f":deny: {ctx.author.mention}: You don't have permission", color=0xf1c40f)
+        await ctx.send(embed=emb)
     raise error
 
 
@@ -707,11 +708,6 @@ async def massunban(ctx):
     emb = discord.Embed(description=f"<:check:818339901959438346> Mass Unbanning", color=0x2ecc71)
     await ctx.send(embed=emb)
 
-@massunban.error
-async def massunban_error(ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            emb = discord.Embed(description=f"<:deny:865149597974528020> {ctx.author.mention}: You don't have permission", color=0xf1c40f)
-            await ctx.send(embed=emb)
 
 
 @client.command()
