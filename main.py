@@ -385,7 +385,7 @@ async def on_command_error(ctx,error):
     if isinstance(error, commands.CommandNotFound):
         pass
     if isinstance(error, commands.MissingPermissions):
-        embed.add_field(name=f'Invalid Permissions', value=f'<:deny:865155819477532672> You dont have {error.missing_perms} permissions.')
+        embed.add_field(name=f'Invalid Permissions', description=f'<:deny:865155819477532672> You dont have {error.missing_perms} permissions.')
         await ctx.send(embed=embed)
     else:
         embed.add_field(name = f':x: Terminal Error', value = f"```{error}```")
@@ -402,7 +402,7 @@ async def on_command_error(ctx,error):
         else:
             await ctx.send(f' You must wait {int(h)} hours, {int(m)} minutes and {int(s)} seconds to use this command')
     elif isinstance(error, commands.CheckFailure):
-        embe = discord.Embed(value=f"Error", color=0xeb4949)
+        embe = discord.Embed(description=f"Error", color=0xeb4949)
         await ctx.send(embed=embe)
     raise error
 
