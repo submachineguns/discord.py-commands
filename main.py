@@ -700,7 +700,7 @@ async def massunban(ctx):
     banlist = await ctx.guild.bans()
     for users in banlist:
         try:
-            await ctx.guild.unba(user=users.user)
+            await ctx.guild.unban(user=users.user)
         except:
             pass
     await ctx.send("Mass Unbanning")
