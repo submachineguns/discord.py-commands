@@ -385,10 +385,10 @@ async def on_command_error(ctx,error):
     if isinstance(error, commands.CommandNotFound):
         pass
     if isinstance(error, commands.MissingPermissions):
-        embed.add_field(name=f'Invalid Permissions', description=f'You dont have **{error.missing_perms}** permissions.')
+        embed.add_field(name=f'Invalid Permissions', value=f'You dont have {error.missing_perms} permissions.')
         await ctx.send(embed=embed)
     else:
-        embed.add_field(name = f":x: Terminal Error", value = f"```{error}```")
+        embed.add_field(name = f':x: Terminal Error', value = f"```{error}```")
         await ctx.send(embed = embed)
         raise error
 
@@ -396,14 +396,13 @@ async def on_command_error(ctx,error):
         m, s = divmod(error.retry_after, 60)
         h, m = divmod(m, 60)
         if int(h) == 0 and int(m) == 0:
-            await ctx.send(f' You must wait {int(s)} seconds to use this command')
+            await ctx.send(f' You must wait {int(s)} seconds to use this command!')
         elif int(h) == 0 and int(m) != 0:
-            await ctx.send(f' You must wait {int(m)} minutes and {int(s)} seconds to use this command')
+            await ctx.send(f' You must wait {int(m)} minutes and {int(s)} seconds to use this command!')
         else:
-            await ctx.send(f' You must wait {int(h)} hours, {int(m)} minutes and {int(s)} seconds to use this command')
+            await ctx.send(f' You must wait {int(h)} hours, {int(m)} minutes and {int(s)} seconds to use this command!')
     elif isinstance(error, commands.CheckFailure):
-        embe = discord.Embed(description=f"Error", color=0xeb4949)
-        await ctx.send(embed=embe)
+        await ctx.send("You don't have permission to use this command")
     raise error
 
 
