@@ -385,10 +385,10 @@ async def on_command_error(ctx,error):
     if isinstance(error, commands.CommandNotFound):
         pass
     if isinstance(error, commands.MissingPermissions):
-        embed.add_field(name=f'Invalid Permissions', description=f'You dont have {error.missing_perms} permissions.')
+        embed.add_field(name=f'Invalid Permissions', description=f'You dont have **{error.missing_perms}** permissions.')
         await ctx.send(embed=embed)
     else:
-        embed.add_field(name = f"<:deny:865155819477532672> Terminal Error", value = f"```{error}```")
+        embed.add_field(name = f":x: Terminal Error", value = f"```{error}```")
         await ctx.send(embed = embed)
         raise error
 
