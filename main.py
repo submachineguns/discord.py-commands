@@ -120,45 +120,13 @@ async def help(ctx):
 
     await ctx.send(embed = em)
 
-@client.event
-async def on_message(message):
-    if (message.content.startsWith('dassdasdasdq1')):
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        await message.guild.create_text_channel('get fucked')
-        
 
 
-@help.command()
+
+
+@help.command()a
 async def jail(ctx):
-
+a
     em = discord.Embed(title = "Syntax", description = ";jail (user) <reason>",color = 0xf28e1c)
 
 
