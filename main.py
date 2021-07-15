@@ -703,7 +703,8 @@ async def massunban(ctx):
             await ctx.guild.unban(user=users.user)
         except:
             pass
-    await ctx.send("Mass Unbanning")
+    emb = discord.Embed(description=f"Mass Unbanning")
+    await ctx.send(embed=emb)
 
 
 @client.command()
