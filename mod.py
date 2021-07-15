@@ -22,17 +22,9 @@ class Mod(Cog):
 
 		if not message.author.bot:
 			if len(list(filter(lambda m: _check(m), self.bot.cached_messages))) >= 3:
-				await message.channel.send("Don't spam mentions", delete_after=10)
-				unmutes = await self.mute_members(message, [message.author], 5, reason="Mention spam")
-
-				if len(unmutes):
-					await sleep(5)
-					await self.unmute_members(message.guild, [message.author])
-	@Cog.listener()
-	async def on_ready(self):
-		if not self.bot.ready:
-			self.log_channel = self.bot.get_channel(865131896774066216)
-			self.mute_role = self.bot.guild.get_role(781373873483939910)
+				await message.channel.send("Stop Pinging", delete_after=10)
+				await self.kick_members(message, [message.author], 5, reason="Spam Pinging")
+            
 
 			self.bot.cogs_ready.ready_up("mod")
 
