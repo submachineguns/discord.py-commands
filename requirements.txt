@@ -7,5 +7,3 @@ colorama
 PyNaCl
 youtube-dl
 ffmpeg
-Discord-Anti-Spam
-AsyncMock
