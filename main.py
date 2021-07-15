@@ -707,7 +707,7 @@ async def massunban(ctx):
     await ctx.send(embed=emb)
 
 @massunban.error
-async def unban_error(ctx, error):
+async def massunban_error(ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             emb = discord.Embed(description=f"<:deny:865149597974528020> {ctx.author.mention}: You don't have permission", color=0xf1c40f)
             await ctx.send(embed=emb)
