@@ -1,3 +1,5 @@
 {
-    "antiSpam": true
+    "captcha": false,
+    "captchaChannel": false,
+    "logChannel": 1
 }

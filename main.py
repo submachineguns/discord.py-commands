@@ -853,10 +853,10 @@ cogs = ["music"]
 for cog in cogs:
     client.load_extension("music")
 
-cogs = ["antispamcog"]
+cogs = ["logscog"]
 
 for cog in cogs:
-    client.load_extension("antispamcog")
+    client.load_extension("logscog")
 
 
 @client.command()
