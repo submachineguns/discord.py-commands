@@ -703,8 +703,14 @@ async def massunban(ctx):
             await ctx.guild.unban(user=users.user)
         except:
             pass
-    emb = discord.Embed(description=f"Mass Unbanning")
+    emb = discord.Embed(description=f"<:check:818339901959438346> Mass Unbanning", color=0x2ecc71)
     await ctx.send(embed=emb)
+
+@massunban.error
+async def unban_error(ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            emb = discord.Embed(description=f"<:deny:865149597974528020> {ctx.author.mention}: You don't have permission", color=0xf1c40f)
+            await ctx.send(embed=emb)
 
 
 @client.command()
