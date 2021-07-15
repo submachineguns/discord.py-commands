@@ -112,7 +112,7 @@ async def level(ctx, member: discord.Member = None):
 async def help(ctx):
     em = discord.Embed(title = "Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xF2684A)
 
-    em.add_field(name = "\n \nModeration", value = "``ban, unban, kick, jail, unjail, purge, bc``", inline=False)
+    em.add_field(name = "\n \nModeration", value = "``ban, unban, massunban, kick, jail, unjail, purge, bc``", inline=False)
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
