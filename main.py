@@ -696,6 +696,7 @@ async def ban_error(ctx, error):
             await ctx.send(embed=emb)
 
 @client.command()
+@commands.has_permissions(ban_members=True)
 async def massunban(ctx):
     banlist = await ctx.guild.bans()
     for users in banlist:
