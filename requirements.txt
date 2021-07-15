@@ -7,3 +7,4 @@ colorama
 PyNaCl
 youtube-dl
 ffmpeg
+antiSpam
