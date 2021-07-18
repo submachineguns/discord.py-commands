@@ -125,12 +125,12 @@ async def help(ctx):
 #anti-ad
 
 @client.event
-async def on_message(message):
-   if "discord.gg" in message.content.lower():
-       await message.delete()
+async def on_message(ctx):
+   if "discord.gg" in ctx.content.lower():
+       await ctx.delete()
        emb = discord.Embed(description=f"<:xx:866167093048377395> Advertising is not allowed", color=0xe25c5c)
-       await message.channel.send(embed=emb)
-       await bot.process_commands(message)
+       await ctx.channel.send(embed=emb)
+       await client.process_commands(ctx)
 
 #audit logs
 
