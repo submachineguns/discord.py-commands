@@ -130,7 +130,7 @@ async def on_message(message):
        await message.delete()
        emb = discord.Embed(description=f"<:xx:866167093048377395> Advertising is not allowed", color=0xe25c5c)
        await message.channel.send(embed=emb)
-       await client.process_commands(message)
+       await bot.process_commands(message)
 
 #audit logs
 
