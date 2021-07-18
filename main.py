@@ -108,6 +108,8 @@ async def level(ctx, member: discord.Member = None):
         lvl = users[str(id)]['level']
         await ctx.send(f'{member} is at level {lvl}!')
 
+#help
+
 @client.group(invoke_without_command=True)
 async def help(ctx):
     em = discord.Embed(title = "Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xF2684A)
@@ -120,9 +122,28 @@ async def help(ctx):
 
     await ctx.send(embed = em)
 
+#anti-ad
 
+@client.event
+async def on_message(message):
+   if "discord.gg" in message.content.lower():
+       await message.delete()
+       emb = discord.Embed(description=f"<:xx:866167093048377395> Advertising is not allowed", color=0xe25c5c)
+       await message.channel.send(embed=emb)
+       await client.process_commands(message)
 
+#audit logs
 
+async def save_audit_logs(guild):
+     with open(f'audit_logs_{guild.name}', 'w+') as f:
+          async for entry in guild.audit_logs(limit=100):
+               f.write('{0.user} did {0.action} to {0.target}'.format(entry))
+
+@client.command
+async def logs(ctx, message):
+         await save_audit_logs(message.channel.guild)
+
+#helpj
 
 @help.command()
 async def jail(ctx):
@@ -134,11 +155,6 @@ async def jail(ctx):
 
     await ctx.send(embed = em)
 
-@help.command()
-async def role(ctx):
-    member = message.author
-    var = discord.utils.get(message.guild.roles, name = "role name")
-    member.add_role(var)
     
 @help.command()
 async def unjail(ctx):
@@ -149,6 +165,14 @@ async def unjail(ctx):
     em.add_field(name = "**Examples**", value = ";unjail mp5#4746 good boy")
 
     await ctx.send(embed = em)
+
+#role
+
+@help.command()
+async def role(ctx):
+    member = message.author
+    var = discord.utils.get(message.guild.roles, name = "role name")
+    member.add_role(var)
 
 @client.command('role')
 @commands.has_permissions(administrator=True) #permissions
@@ -162,6 +186,8 @@ async def role(ctx, user : discord.Member, *, role : discord.Role):
       await user.add_roles(role) #adds role if not already has it
       await ctx.send(f"Added {role} to {user.mention}") 
 
+#btc
+
 @client.command(aliases=['bitcoin'])
 async def btc(ctx):
 	r = requests.get('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR')
@@ -174,6 +200,8 @@ async def btc(ctx):
 	embed.set_footer(text='updated bitcoin prices to this hour')
 	await ctx.send(embed=embed)
 	    
+#eth
+
 @client.command(aliases=['ethereum'])
 async def eth(ctx):
 	r = requests.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR')
@@ -194,6 +222,8 @@ async def restart(ctx: commands.Context):
 		pass 
 	finally:
 		os.system('python main.py')
+
+#economy
 
 mainshop = [{"name":"Watch","price":100,"description":"Time"},
 			{"name":"Beer","price":500,"description":"Drink"},
@@ -939,7 +969,6 @@ async def jail(ctx, member: discord.Member, *, reason='No reason was specified')
 @commands.cooldown(1, 2, commands.BucketType.user) 
 async def unjail(ctx, member: discord.Member= None, *, reason='No reason was specified'):
     guild = ctx.guild
-    await ctx.send(f":thumbsup:")
     mutedRole = discord.utils.get(ctx.guild.roles, name="jailed")
     unretard = discord.Embed(
         title='Unjailed',
@@ -948,6 +977,7 @@ async def unjail(ctx, member: discord.Member= None, *, reason='No reason was spe
     )
     await member.remove_roles(mutedRole)
     await member.send(embed=unretard)
+    await ctx.send(f":thumbsup:")
 
 
 @client.command()
