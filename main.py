@@ -832,10 +832,17 @@ async def afk(ctx, reason=None):
 
     await ctx.author.edit(nick=f'[AFK]{ctx.author.display_name}')
 
+#cogs
+
 cogs = ["music"]
 
 for cog in cogs:
     client.load_extension("music")
+
+cogs = ["giveaway"]
+
+for cog in cogs:
+    client.load_extension("giveaway")
 
 #weather
 
