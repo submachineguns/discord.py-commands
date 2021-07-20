@@ -862,7 +862,7 @@ async def giveaway(ctx):
     give = discord.Embed(color = 0x2ecc71)
     give.set_author(name = f'Giveaway')
     give.add_field(name= f'{ctx.author.name} is giving away: {prize}', value = f'React with 🎉 to enter!\n Ends in {round(time/60, 2)} minutes!', inline = False)
-    end = datetime.datetime.estnow() + datetime.timedelta(seconds = time)
+    end = datetime.datetime.utcnow() + datetime.timedelta(seconds = time)
     give.set_footer(text = f'Giveaway ends at {end} EST')
     my_message = await channel.send(embed = give)
     
