@@ -8,6 +8,8 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 from itertools import cycle
+import aiohttp
+import io
 import traceback
 import time
 import logging
@@ -906,6 +908,29 @@ async def reroll(ctx, channel: discord.TextChannel, id_ : int):
     reroll_announcement.set_author(name = f'The giveaway was re-rolled by the host')
     reroll_announcement.add_field(name = f'New Winner:', value = f'{winner.mention}', inline = False)
     await channel.send(embed = reroll_announcement)
+
+#seticon
+
+@client.command(aliases=['changeicon'])
+async def seticon(ctx, url: str):
+    """Set the guild icon."""
+    if ctx.message.guild is None:
+        return
+
+    permissions = ctx.message.author.permissions_in(ctx.channel)
+    if not permissions.administrator:
+        print("user is not admin")
+        return
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            if resp.status != 200:
+                return await ctx.send('Could not download file...')
+            data = io.BytesIO(await resp.read())
+            await ctx.message.guild.edit(icon=data.read())
+            embed = discord.Embed(description=f"<:check:818339901959438346> Icon was set", color = 0x2ecc71)
+            await ctx.send("Icon set!")
+
 
 #afk
 
