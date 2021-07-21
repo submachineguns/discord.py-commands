@@ -307,7 +307,9 @@ class Music(commands.Cog):
 
         player = self.get_player(ctx)
         if player.queue.empty():
-            return await ctx.send('There are currently no more queued songs.')
+            emb = discord.Embed(description=f"{ctx.author.mention} There are currently no more queued songs", color = 0xF2684A)
+            await ctx.send(embed=emb)
+            return
 
         # Grab up to 5 entries from the queue...
         upcoming = list(itertools.islice(player.queue._queue, 0, 5))
