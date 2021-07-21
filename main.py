@@ -247,8 +247,7 @@ async def send(ctx,member : discord.Member,amount = None):
     await open_account(ctx.author)
     await open_account(member)
     if amount == None:
-        emb = discord.Embed(description=f"{ctx.author.mention} Please enter the amount to deposit", color = 0xF2684A)
-        await ctx.send(embed=emb)
+        await ctx.send("Please enter the amount")
         return
 
     bal = await update_bank(ctx.author)
@@ -375,10 +374,11 @@ async def buy(ctx,item,amount = 1):
 
     if not res[0]:
         if res[1]==1:
-            await ctx.send("Please specify an item")
+            emb = discord.Embed(description=f"{ctx.author.mention} Please specify an item", color = 0xF2684A)
+            await ctx.send(embed=emb)
             return
         if res[1]==2:
-            emb = discord.Embed(description=f"{ctx.author.mention} You don't have enough money in your wallet to buy {amount} {item}", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have enough money in your wallet to buy *{amount}* {item}", color = 0xF2684A)
             await ctx.send(embed=emb)
             return
 
