@@ -668,7 +668,11 @@ async def massunban(ctx):
     emb = discord.Embed(description=f"<:check:818339901959438346> Mass Unbanning", color=0x2ecc71)
     await ctx.send(embed=emb)
 
-
+@massunban.error
+async def massunban_error(ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            emb = discord.Embed(description=f"<:error:867509993884614666> {ctx.author.mention}: You are missing permissions", color = 0xec6a6a)
+            await ctx.send(embed=emb)
 
 
 #wanted
@@ -732,7 +736,7 @@ async def unban(ctx, *, user=None):
     try:
         user = await commands.converter.UserConverter().convert(ctx, user)
     except:
-        emb = discord.Embed(description=f"<:xx:867508385838923806> user could not be found", color = 0xe74c3c)
+        emb = discord.Embed(description=f"<:error:867509993884614666> user could not be found", color = 0xec6a6a)
         await ctx.send(embed=emb)
         return
 
@@ -741,7 +745,7 @@ async def unban(ctx, *, user=None):
         if user in bans:
             await ctx.guild.unban(user, reason="Responsible moderator: "+ str(ctx.author))
         else:
-            emb = discord.Embed(description=f"<:xx:867508385838923806> User not banned", color = 0xe74c3c)
+            emb = discord.Embed(description=f"<:error:867509993884614666> User not banned", color = 0xec6a6a)
             await ctx.send(embed=emb)
             return
 
@@ -932,7 +936,7 @@ async def seticon(ctx, url: str):
 @seticon.error
 async def guild_edit_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        emb = discord.Embed(description=f"<:xx:867508385838923806> {ctx.author.mention}: Please send a URL to change to", color=0xec6a6a)
+        emb = discord.Embed(description=f"<:error:867509993884614666> {ctx.author.mention}: Please send a URL to change to", color = 0xec6a6a)
         await ctx.send(embed=emb)
 
 
