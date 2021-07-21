@@ -301,7 +301,9 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            return await ctx.send('I am not currently connected to voice!')
+            emb = discord.Embed(description=f"{ctx.author.mention} I am not currently connected to voice", color = 0xF2684A)
+            await ctx.send(embed=emb)
+            return 
 
         player = self.get_player(ctx)
         if player.queue.empty():
