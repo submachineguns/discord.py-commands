@@ -311,7 +311,7 @@ class Music(commands.Cog):
         upcoming = list(itertools.islice(player.queue._queue, 0, 5))
 
         fmt = '\n'.join(f'**`{_["title"]}`**' for _ in upcoming)
-        embed = discord.Embed(title=f'Upcoming - Next {len(upcoming)}', description=fmt)
+        embed = discord.Embed(title=f'Queue - Songs next {len(upcoming)}', description=fmt, color = 0xF2684A)
 
         await ctx.send(embed=embed)
 
