@@ -181,9 +181,9 @@ async def beg(ctx):
 
     users = await get_bank_data()
 
-    earnings = random.randrange(101)
-
-    await ctx.send(f'{ctx.author.mention} Got {earnings} coins!!')
+    earnings = random.randrange(7500)
+    emb = discord.Embed(description=f"{ctx.author.mention} Got {earnings} coins", color = 0xF2684A)
+    await ctx.send(embed=emb)
 
     users[str(user.id)]["wallet"] += earnings
 
@@ -341,16 +341,6 @@ async def on_command_error(ctx,error):
     embed = discord.Embed(
     title='',
     color=discord.Color.red())
-    if isinstance(error, commands.CommandNotFound):
-        pass
-    if isinstance(error, commands.MissingPermissions):
-        embed.add_field(name=f'Invalid Permissions', value=f'You dont have **{error.missing_perms}** permissions.')
-        await ctx.send(embed=embed)
-    else:
-        embed.add_field(name = f'Terminal Error', value = f"```{error}```")
-        await ctx.send(embed = embed)
-        raise error
-
     if isinstance(error, commands.CommandOnCooldown):
         m, s = divmod(error.retry_after, 60)
         h, m = divmod(m, 60)
