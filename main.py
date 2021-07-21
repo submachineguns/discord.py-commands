@@ -195,7 +195,7 @@ async def beg(ctx):
 async def withdraw(ctx,amount = None):
     await open_account(ctx.author)
     if amount == None:
-        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
         await ctx.send(embed=emb)
         return
 
@@ -214,14 +214,16 @@ async def withdraw(ctx,amount = None):
 
     await update_bank(ctx.author,amount)
     await update_bank(ctx.author,-1*amount,'bank')
-    await ctx.send(f'{ctx.author.mention} You withdrew {amount} coins')
+    emb = discord.Embed(description=f"{ctx.author.mention} You withdrew {amount} coins", color = 0xF2684A)
+    await ctx.send(embed=emb)
 
 
 @client.command(aliases=['dp'])
 async def deposit(ctx,amount = None):
     await open_account(ctx.author)
     if amount == None:
-        await ctx.send("Please enter the amount")
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
 
     bal = await update_bank(ctx.author)
@@ -378,7 +380,7 @@ async def buy(ctx,item,amount = 1):
             await ctx.send(embed=emb)
             return
         if res[1]==2:
-            emb = discord.Embed(description=f"{ctx.author.mention} You don't have enough money in your wallet to buy *{amount}* {item}", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have enough money in your wallet to buy **{amount}** {item}", color = 0xF2684A)
             await ctx.send(embed=emb)
             return
 
