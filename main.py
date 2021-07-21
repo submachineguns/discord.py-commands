@@ -98,11 +98,6 @@ async def unjail(ctx):
 
 #role
 
-@help.command()
-async def role(ctx):
-    member = message.author
-    var = discord.utils.get(message.guild.roles, name = "role name")
-    member.add_role(var)
 
 @client.command('role')
 @commands.has_permissions(administrator=True) #permissions
@@ -727,6 +722,8 @@ async def hello(ctx):
     await ctx.send("hi :wave:")
 
 
+#unban
+
 @client.command()
 @commands.has_permissions(ban_members=True)
 @commands.cooldown(1, 5, commands.BucketType.user)
@@ -912,6 +909,7 @@ async def reroll(ctx, channel: discord.TextChannel, id_ : int):
 #seticon
 
 @client.command(aliases=['changeicon'])
+@commands.has_permissions(manage_roles=True)
 async def seticon(ctx, url: str):
     """Set the guild icon."""
     if ctx.message.guild is None:
@@ -928,9 +926,20 @@ async def seticon(ctx, url: str):
                 return await ctx.send('Could not download file...')
             data = io.BytesIO(await resp.read())
             await ctx.message.guild.edit(icon=data.read())
-            embed = discord.Embed(description=f"<:check:818339901959438346> Icon was set", color = 0x2ecc71)
+            embed = discord.Embed(description=f"<:check:818339901959438346> The Server Icon was changed", color = 0x2ecc71)
             await ctx.send(embed=embed)
 
+@seticon.error
+async def guild_edit_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        emb = discord.Embed(description=f":warning: {ctx.author.mention}: Please send a URL to change to", color=0xf1c40f)
+        await ctx.send(embed=emb)
+
+@seticon.error
+async def guild_edit_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        emb = discord.Embed(description=f":warning: {ctx.author.mention}: You don't have permissions", color=0xf1c40f)
+        await ctx.send(embed=emb)
 
 #afk
 
@@ -949,6 +958,7 @@ async def afk(ctx, reason=None):
         json.dump(afk, f)
 
     await ctx.author.edit(nick=f'[AFK]{ctx.author.display_name}')
+
 
 #cogs
 
