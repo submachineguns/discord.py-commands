@@ -241,7 +241,8 @@ async def deposit(ctx,amount = None):
 
     await update_bank(ctx.author,-1*amount)
     await update_bank(ctx.author,amount,'bank')
-    await ctx.send(f'{ctx.author.mention} You deposited {amount} coins')
+    emb = discord.Embed(description=f"{ctx.author.mention} You deposited {amount} coins", color = 0xF2684A)
+    await ctx.send(embed=emb)
 
 
 @client.command(aliases=['sm'])
