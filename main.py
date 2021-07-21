@@ -203,10 +203,13 @@ async def withdraw(ctx,amount = None):
     amount = int(amount)
 
     if amount > bal[1]:
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        await ctx.send(embed=emb)
         await ctx.send('You do not have sufficient balance')
         return
     if amount < 0:
-        await ctx.send('Amount must be positive!')
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
 
     await update_bank(ctx.author,amount)
@@ -226,10 +229,12 @@ async def deposit(ctx,amount = None):
     amount = int(amount)
 
     if amount > bal[0]:
-        await ctx.send('You do not have sufficient balance')
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
     if amount < 0:
-        await ctx.send('Amount must be positive!')
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
 
     await update_bank(ctx.author,-1*amount)
@@ -242,7 +247,8 @@ async def send(ctx,member : discord.Member,amount = None):
     await open_account(ctx.author)
     await open_account(member)
     if amount == None:
-        await ctx.send("Please enter the amount")
+        emb = discord.Embed(description=f"{ctx.author.mention} Please enter the amount to deposit", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
 
     bal = await update_bank(ctx.author)
@@ -252,10 +258,12 @@ async def send(ctx,member : discord.Member,amount = None):
     amount = int(amount)
 
     if amount > bal[0]:
-        await ctx.send('You do not have sufficient balance')
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
     if amount < 0:
-        await ctx.send('Amount must be positive!')
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
 
     await update_bank(ctx.author,-1*amount,'bank')
@@ -285,7 +293,8 @@ async def rob(ctx,member : discord.Member):
 async def slots(ctx,amount = None):
     await open_account(ctx.author)
     if amount == None:
-        await ctx.send("Please enter the amount")
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
 
     bal = await update_bank(ctx.author)
@@ -293,10 +302,12 @@ async def slots(ctx,amount = None):
     amount = int(amount)
 
     if amount > bal[0]:
-        await ctx.send('You do not have sufficient balance')
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
     if amount < 0:
-        await ctx.send('Amount must be positive!')
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
     final = []
     for i in range(3):
@@ -308,10 +319,12 @@ async def slots(ctx,amount = None):
 
     if final[0] == final[1] or final[1] == final[2] or final[0] == final[2]:
         await update_bank(ctx.author,2*amount)
-        await ctx.send(f'{ctx.author.mention} Won')
+        emb = discord.Embed(description=f"{ctx.author.mention} Won", color = 0xF2684A)
+        await ctx.send(embed=emb)
     else:
         await update_bank(ctx.author,-1*amount)
-        await ctx.send(f'{ctx.author.mention} Lost')
+        emb = discord.Embed(description=f"{ctx.author.mention} Lost", color = 0xF2684A)
+        await ctx.send(embed=emb)
 
 
 @client.command()
@@ -326,6 +339,7 @@ async def shop(ctx):
 
     await ctx.send(embed = em)
 
+#av
 
 @client.command(aliases=['av'])
 async def avatar(ctx, *, member: discord.Member = None):
@@ -361,14 +375,17 @@ async def buy(ctx,item,amount = 1):
 
     if not res[0]:
         if res[1]==1:
-            await ctx.send("That Object isn't there!")
+            emb = discord.Embed(description=f"{ctx.author.mention} The item isn't available", color = 0xF2684A)
+            await ctx.send(embed=emb)
             return
         if res[1]==2:
-            await ctx.send(f"You don't have enough money in your wallet to buy {amount} {item}")
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have enough money in your wallet to buy {amount} {item}", color = 0xF2684A)
+            await ctx.send(embed=emb)
             return
 
 
-    await ctx.send(f"You just bought {amount} {item}")
+    emb = discord.Embed(description=f"{ctx.author.mention} You just bought {amount} {item}", color = 0xF2684A)
+    await ctx.send(embed=emb)
 
 
 @client.command()
@@ -451,16 +468,20 @@ async def sell(ctx,item,amount = 1):
 
     if not res[0]:
         if res[1]==1:
-            await ctx.send("That Object isn't there!")
+            emb = discord.Embed(description=f"{ctx.author.mention} The item isn't available", color = 0xF2684A)
+            await ctx.send(embed=emb)
             return
         if res[1]==2:
-            await ctx.send(f"You don't have {amount} {item} in your bag.")
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have {amount} {item} in your bag", color = 0xF2684A)
+            await ctx.send(embed=emb)
             return
         if res[1]==3:
-            await ctx.send(f"You don't have {item} in your bag.")
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have {item} in your bag", color = 0xF2684A)
+            await ctx.send(embed=emb)
             return
 
-    await ctx.send(f"You just sold {amount} {item}.")
+    emb = discord.Embed(description=f"{ctx.author.mention} You just sold {amount} {item}", color = 0xF2684A)
+    await ctx.send(embed=emb)
 
 async def sell_this(user,item_name,amount,price = None):
     item_name = item_name.lower()
@@ -523,7 +544,7 @@ async def leaderboard(ctx,x = 1):
 
     total = sorted(total,reverse=True)    
 
-    em = discord.Embed(title = f"Top {x} Richest People" , description = "This is decided on the basis of raw money in the bank and wallet",color = discord.Color(0xfa43ee))
+    em = discord.Embed(title = f"Top {x} Richest People" , description = "This is decided on the basis of raw money in the bank and wallet",color = discord.Color(0xF2684A))
     index = 1
     for amt in total:
         id_ = leader_board[amt]
