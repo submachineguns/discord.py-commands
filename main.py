@@ -929,7 +929,7 @@ async def seticon(ctx, url: str):
             data = io.BytesIO(await resp.read())
             await ctx.message.guild.edit(icon=data.read())
             embed = discord.Embed(description=f"<:check:818339901959438346> Icon was set", color = 0x2ecc71)
-            await ctx.send("Icon set!")
+            await ctx.send(embed=embed)
 
 
 #afk
