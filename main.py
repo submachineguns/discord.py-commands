@@ -372,6 +372,8 @@ async def on_command_error(ctx,error):
 @client.command()
 async def buy(ctx,item,amount = 1):
     await open_account(ctx.author)
+    emb = discord.Embed(description=f"{ctx.author.mention} Please specify an item", color = 0xF2684A)
+    await ctx.send(embed=emb)
 
     res = await buy_this(ctx.author,item,amount)
 
@@ -385,7 +387,8 @@ async def buy(ctx,item,amount = 1):
             await ctx.send(embed=emb)
             return
 
-    await ctx.send(f"You just bought {amount} {item}")
+    emb = discord.Embed(description=f"{ctx.author.mention} You just bought **{amount}** {item}", color = 0xF2684A)
+    await ctx.send(embed=emb)
 
 
 @client.command()
@@ -472,7 +475,7 @@ async def sell(ctx,item,amount = 1):
             await ctx.send(embed=emb)
             return
         if res[1]==2:
-            emb = discord.Embed(description=f"{ctx.author.mention} You don't have {amount} {item} in your bag", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have **{amount}** {item} in your bag", color = 0xF2684A)
             await ctx.send(embed=emb)
             return
         if res[1]==3:
@@ -480,7 +483,7 @@ async def sell(ctx,item,amount = 1):
             await ctx.send(embed=emb)
             return
 
-    emb = discord.Embed(description=f"{ctx.author.mention} You just sold {amount} {item}", color = 0xF2684A)
+    emb = discord.Embed(description=f"{ctx.author.mention} You just sold **{amount}** {item}", color = 0xF2684A)
     await ctx.send(embed=emb)
 
 async def sell_this(user,item_name,amount,price = None):
