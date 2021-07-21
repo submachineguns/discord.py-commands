@@ -936,7 +936,7 @@ async def guild_edit_error(ctx, error):
         await ctx.send(embed=emb)
 
 @seticon.error
-async def guild_edit_error(ctx, error):
+async def has_permissions(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         emb = discord.Embed(description=f":warning: {ctx.author.mention}: You don't have permissions", color=0xf1c40f)
         await ctx.send(embed=emb)
