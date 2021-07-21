@@ -174,14 +174,14 @@ async def balance(ctx):
     await ctx.send(embed= em)
 
 @client.command()
-@commands.cooldown(1, 20, commands.BucketType.user)
+@commands.cooldown(1, 20000, commands.BucketType.user)
 async def beg(ctx):
     await open_account(ctx.author)
     user = ctx.author
 
     users = await get_bank_data()
 
-    earnings = random.randrange(7500)
+    earnings = random.randrange(5900)
     emb = discord.Embed(description=f"{ctx.author.mention} Got {earnings} coins", color = 0xF2684A)
     await ctx.send(embed=emb)
 
