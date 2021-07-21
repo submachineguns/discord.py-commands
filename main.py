@@ -195,7 +195,8 @@ async def beg(ctx):
 async def withdraw(ctx,amount = None):
     await open_account(ctx.author)
     if amount == None:
-        await ctx.send("Please enter the amount")
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        await ctx.send(embed=emb)
         return
 
     bal = await update_bank(ctx.author)
@@ -205,7 +206,6 @@ async def withdraw(ctx,amount = None):
     if amount > bal[1]:
         emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
         await ctx.send(embed=emb)
-        await ctx.send('You do not have sufficient balance')
         return
     if amount < 0:
         emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
