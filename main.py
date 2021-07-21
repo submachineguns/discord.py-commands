@@ -372,8 +372,6 @@ async def on_command_error(ctx,error):
 @client.command()
 async def buy(ctx,item,amount = 1):
     await open_account(ctx.author)
-    emb = discord.Embed(description=f"{ctx.author.mention} Please specify an item", color = 0xF2684A)
-    await ctx.send(embed=emb)
 
     res = await buy_this(ctx.author,item,amount)
 
@@ -466,8 +464,6 @@ async def buy_this(user,item_name,amount):
 @client.command()
 async def sell(ctx,item,amount = 1):
     await open_account(ctx.author)
-    emb = discord.Embed(description=f"{ctx.author.mention} Please specify an item", color = 0xF2684A)
-    await ctx.send(embed=emb)
 
     res = await sell_this(ctx.author,item,amount)
 
