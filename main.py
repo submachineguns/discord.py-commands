@@ -52,7 +52,7 @@ async def on_ready():
 
 @client.group(invoke_without_command=True)
 async def help(ctx):
-    em = discord.Embed(title = "Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xF2684A)
+    em = discord.Embed(title = "Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xd65c27)
 
     em.add_field(name = "\n \nModeration", value = "``ban, unban, massunban, kick, jail, unjail, purge, bc, lockdown``", inline=False)
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
@@ -72,13 +72,25 @@ async def on_message(ctx):
        await client.process_commands(ctx)
 
 
+#user-info
 
+@client.command(aliases=['ui'])
+async def userinfo(ctx, member: discord.Member):
+
+    roles = [role for role in member.roles]
+
+    roles = []
+    for role in member.roles:
+        role.append(role)
+
+
+    embed = discord.Embed(timestamp=ctx.message.created_at, color = 0xd65c27)
 
 
 @help.command()
 async def jail(ctx):
 
-    em = discord.Embed(title = "Syntax", description = ";jail (user) <reason>",color = 0xf28e1c)
+    em = discord.Embed(title = "Syntax", description = ";jail (user) <reason>",color = 0xd65c27)
 
 
     em.add_field(name = "**Examples**", value = ";jail mp5#4746 dumb")
@@ -89,7 +101,7 @@ async def jail(ctx):
 @help.command()
 async def unjail(ctx):
 
-    em = discord.Embed(title = "Syntax", description = ";unjail (user) <reason>",color = 0xf28e1c)
+    em = discord.Embed(title = "Syntax", description = ";unjail (user) <reason>",color = 0xd65c27)
 
 
     em.add_field(name = "**Examples**", value = ";unjail mp5#4746 good boy")
@@ -168,7 +180,7 @@ async def balance(ctx):
     wallet_amt = users[str(user.id)]["wallet"]
     bank_amt = users[str(user.id)]["bank"]
 
-    em = discord.Embed(title=f"{ctx.author.name}'s Balance",color = 0xf28e1c)
+    em = discord.Embed(title=f"{ctx.author.name}'s Balance",color = 0xd65c27)
     em.add_field(name="Wallet Balance", value=wallet_amt)
     em.add_field(name='Bank Balance',value=bank_amt)
     await ctx.send(embed= em)
@@ -182,7 +194,7 @@ async def beg(ctx):
     users = await get_bank_data()
 
     earnings = random.randrange(5900)
-    emb = discord.Embed(description=f"{ctx.author.mention} Got {earnings} coins", color = 0xF2684A)
+    emb = discord.Embed(description=f"{ctx.author.mention} Got {earnings} coins", color = 0xd65c27)
     await ctx.send(embed=emb)
 
     users[str(user.id)]["wallet"] += earnings
@@ -195,7 +207,7 @@ async def beg(ctx):
 async def withdraw(ctx,amount = None):
     await open_account(ctx.author)
     if amount == None:
-        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
 
@@ -204,17 +216,17 @@ async def withdraw(ctx,amount = None):
     amount = int(amount)
 
     if amount > bal[1]:
-        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
     if amount < 0:
-        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
 
     await update_bank(ctx.author,amount)
     await update_bank(ctx.author,-1*amount,'bank')
-    emb = discord.Embed(description=f"{ctx.author.mention} You withdrew {amount} coins", color = 0xF2684A)
+    emb = discord.Embed(description=f"{ctx.author.mention} You withdrew {amount} coins", color = 0xd65c27)
     await ctx.send(embed=emb)
 
 
@@ -222,7 +234,7 @@ async def withdraw(ctx,amount = None):
 async def deposit(ctx,amount = None):
     await open_account(ctx.author)
     if amount == None:
-        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
 
@@ -231,17 +243,17 @@ async def deposit(ctx,amount = None):
     amount = int(amount)
 
     if amount > bal[0]:
-        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
     if amount < 0:
-        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
 
     await update_bank(ctx.author,-1*amount)
     await update_bank(ctx.author,amount,'bank')
-    emb = discord.Embed(description=f"{ctx.author.mention} You deposited {amount} coins", color = 0xF2684A)
+    emb = discord.Embed(description=f"{ctx.author.mention} You deposited {amount} coins", color = 0xd65c27)
     await ctx.send(embed=emb)
 
 
@@ -260,11 +272,11 @@ async def send(ctx,member : discord.Member,amount = None):
     amount = int(amount)
 
     if amount > bal[0]:
-        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
     if amount < 0:
-        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
 
@@ -295,7 +307,7 @@ async def rob(ctx,member : discord.Member):
 async def slots(ctx,amount = None):
     await open_account(ctx.author)
     if amount == None:
-        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
 
@@ -304,11 +316,11 @@ async def slots(ctx,amount = None):
     amount = int(amount)
 
     if amount > bal[0]:
-        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} You don't have a sufficient balance", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
     if amount < 0:
-        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Please specify an amount", color = 0xd65c27)
         await ctx.send(embed=emb)
         return
     final = []
@@ -321,11 +333,11 @@ async def slots(ctx,amount = None):
 
     if final[0] == final[1] or final[1] == final[2] or final[0] == final[2]:
         await update_bank(ctx.author,2*amount)
-        emb = discord.Embed(description=f"{ctx.author.mention} Won", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Won", color = 0xd65c27)
         await ctx.send(embed=emb)
     else:
         await update_bank(ctx.author,-1*amount)
-        emb = discord.Embed(description=f"{ctx.author.mention} Lost", color = 0xF2684A)
+        emb = discord.Embed(description=f"{ctx.author.mention} Lost", color = 0xd65c27)
         await ctx.send(embed=emb)
 
 
@@ -377,15 +389,15 @@ async def buy(ctx,item,amount = 1):
 
     if not res[0]:
         if res[1]==1:
-            emb = discord.Embed(description=f"{ctx.author.mention} Please specify an item", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} Please specify an item", color = 0xd65c27)
             await ctx.send(embed=emb)
             return
         if res[1]==2:
-            emb = discord.Embed(description=f"{ctx.author.mention} You don't have enough money in your wallet to buy **{amount}** {item}", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have enough money in your wallet to buy **{amount}** {item}", color = 0xd65c27)
             await ctx.send(embed=emb)
             return
 
-    emb = discord.Embed(description=f"{ctx.author.mention} You just bought **{amount}** {item}", color = 0xF2684A)
+    emb = discord.Embed(description=f"{ctx.author.mention} You just bought **{amount}** {item}", color = 0xd65c27)
     await ctx.send(embed=emb)
 
 
@@ -469,19 +481,19 @@ async def sell(ctx,item,amount = 1):
 
     if not res[0]:
         if res[1]==1:
-            emb = discord.Embed(description=f"{ctx.author.mention} The item isn't available", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} The item isn't available", color = 0xd65c27)
             await ctx.send(embed=emb)
             return
         if res[1]==2:
-            emb = discord.Embed(description=f"{ctx.author.mention} You don't have **{amount}** {item} in your bag", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have **{amount}** {item} in your bag", color = 0xd65c27)
             await ctx.send(embed=emb)
             return
         if res[1]==3:
-            emb = discord.Embed(description=f"{ctx.author.mention} You don't have {item} in your bag", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} You don't have {item} in your bag", color = 0xd65c27)
             await ctx.send(embed=emb)
             return
 
-    emb = discord.Embed(description=f"{ctx.author.mention} You just sold **{amount}** {item}", color = 0xF2684A)
+    emb = discord.Embed(description=f"{ctx.author.mention} You just sold **{amount}** {item}", color = 0xd65c27)
     await ctx.send(embed=emb)
 
 async def sell_this(user,item_name,amount,price = None):

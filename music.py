@@ -301,13 +301,13 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
-            emb = discord.Embed(description=f"{ctx.author.mention} I am not currently connected to voice", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} I am not currently connected to voice", color = 0xd65c27)
             await ctx.send(embed=emb)
             return 
 
         player = self.get_player(ctx)
         if player.queue.empty():
-            emb = discord.Embed(description=f"{ctx.author.mention} There are currently no more queued songs", color = 0xF2684A)
+            emb = discord.Embed(description=f"{ctx.author.mention} There are currently no more queued songs", color = 0xd65c27)
             await ctx.send(embed=emb)
             return
 
@@ -315,7 +315,7 @@ class Music(commands.Cog):
         upcoming = list(itertools.islice(player.queue._queue, 0, 5))
 
         fmt = '\n'.join(f'**`{_["title"]}`**' for _ in upcoming)
-        embed = discord.Embed(title=f'Queue - Songs next {len(upcoming)}', description=fmt, color = 0xF2684A)
+        embed = discord.Embed(title=f'Queue - Songs next {len(upcoming)}', description=fmt, color = 0xd65c27)
 
         await ctx.send(embed=embed)
 
