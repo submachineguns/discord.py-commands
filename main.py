@@ -136,7 +136,7 @@ async def role(ctx, user : discord.Member, *, role : discord.Role):
       await ctx.send(embed=emb)
   else:
       await user.add_roles(role) #adds role if not already has it
-      emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention} Added the role **{role}** to ", color = 0x2ecc71)
+      emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention} Added the role **{role}** to {user.mention}", color = 0x2ecc71)
       await ctx.send(embed=emb)
 
 
@@ -149,6 +149,31 @@ async def createrole(ctx, *, name):
 	guild = ctx.guild
 	await guild.create_role(name=name)
 	await ctx.send(f'Role **{name}** has been created')
+
+@createrole.error
+async def createrole_error(ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            emb = discord.Embed(description=f":warning: {ctx.author.mention}: Please specify a role to create", color=0xf1c40f)
+            await ctx.send(embed=emb)
+
+#removerole
+
+@client.command(aliases=['rrole', 'remove', 'removerole', 'delrole', 'drole'], name="deleterole", pass_context=True)
+async def deleterole(ctx, role_name):
+    #find role object
+    role_object = discord.utils.get(ctx.message.guild.roles, name=role_name)
+    #delete role
+    await role_object.delete()
+    emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention} Deleted the role **{role_name}**", color = 0x2ecc71)
+    await ctx.send(embed=emb)
+
+
+@deleterole.error
+async def deleterole_error(ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            emb = discord.Embed(description=f":warning: {ctx.author.mention}: Please specify a role to delete", color=0xf1c40f)
+            await ctx.send(embed=emb)
+
 
 #btc
 
