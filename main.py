@@ -75,13 +75,10 @@ async def on_message(ctx):
 #user-info
 
 @client.command(aliases=['ui'])
-async def userinfo(ctx, member: discord.Member):
-
+async def userinfo(ctx, member: discord.Member = None):
+    member = ctx.author if not member else member
     roles = [role for role in member.roles]
 
-    roles = []
-    for role in member.roles:
-        role.append(role)
 
 
     embed = discord.Embed(timestamp=ctx.message.created_at, color = 0xd65c27)
@@ -94,7 +91,7 @@ async def userinfo(ctx, member: discord.Member):
     embed.add_field(name="Guild Name:", value=member.display_name)
 
     embed.add_field(name="Created At:", value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
-    embed.add_field(name="Joined At:", value=member.joined.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
+    embed.add_field(name="Joined At:", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
 
     embed.add_field(name="Roles", value=" ".join([role.mention for role in roles]))
     embed.add_field(name="Top role:", value=member.top_role.mention)
