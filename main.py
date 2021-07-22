@@ -58,7 +58,7 @@ async def help(ctx):
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
-    em.add_field(name = "Utility", value = "``snipe, av*, btc*, eth*, role, seticon*, userinfo*``", inline=False)
+    em.add_field(name = "Utility", value = "``snipe, av*, btc*, eth*, role, seticon*, userinfo*, createrole*, deleterole*``", inline=False)
 
     await ctx.send(embed = em)
 
