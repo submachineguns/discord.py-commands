@@ -58,7 +58,7 @@ async def help(ctx):
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
-    em.add_field(name = "Utility", value = "``snipe, av*, btc*, eth*, role, seticon``", inline=False)
+    em.add_field(name = "Utility", value = "``snipe, av*, btc*, eth*, role, seticon*, userinfo*``", inline=False)
 
     await ctx.send(embed = em)
 
@@ -85,6 +85,23 @@ async def userinfo(ctx, member: discord.Member):
 
 
     embed = discord.Embed(timestamp=ctx.message.created_at, color = 0xd65c27)
+    
+    embed.set_author(name=f"User Info - {member}")
+    embed.set_thumbnail(url=member.avatar_url)
+    embed.set_footer(text=f"Requested By {ctx.author}", icon_url=ctx.author.avatar_url)
+
+    embed.add_field(name="ID:", value=member.id)
+    embed.add_field(name="Guild Name:", value=member.display_name)
+
+    embed.add_field(name="Created At:", value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
+    embed.add_field(name="Joined At:", value=member.joined.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
+
+    embed.add_field(name="Roles", value=" ".join([role.mention for role in roles]))
+    embed.add_field(name="Top role:", value=member.top_role.mention)
+
+    embed.add_field(name="Bot?", value=member.bot)
+
+    await ctx.send(embed=embed)
 
 
 @help.command()
