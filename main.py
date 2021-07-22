@@ -132,10 +132,23 @@ async def role(ctx, user : discord.Member, *, role : discord.Role):
     return await ctx.send('**:x: | That role is above your top role!**') 
   if role in user.roles:
       await user.remove_roles(role) #removes the role if user already has
-      await ctx.send(f"Removed {role} from {user.mention}")
+      emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention} Removed the role  **{role}** from {user.mention}", color = 0x2ecc71)
+      await ctx.send(embed=emb)
   else:
       await user.add_roles(role) #adds role if not already has it
-      await ctx.send(f"Added {role} to {user.mention}") 
+      emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention} Added the role **{role}** to ", color = 0x2ecc71)
+      await ctx.send(embed=emb)
+
+
+#createrole
+
+
+@client.command(aliases=['crole', 'makerole'])
+@commands.has_permissions(manage_roles=True) # Check if the user executing the command can manage roles
+async def createrole(ctx, *, name):
+	guild = ctx.guild
+	await guild.create_role(name=name)
+	await ctx.send(f'Role **{name}** has been created')
 
 #btc
 
