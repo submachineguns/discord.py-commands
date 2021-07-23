@@ -49,6 +49,7 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name=f"world simulator")) # This changes the bots 'activity'
 
 
+#help
 
 @client.group(invoke_without_command=True)
 async def help(ctx):
@@ -728,6 +729,29 @@ async def ban(ctx, member: discord.Member, *, reason=None):
 async def ban_error(ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             emb = discord.Embed(description=f":warning: {ctx.author.mention}: Please specify a member", color=0xf1c40f)
+            await ctx.send(embed=emb)
+
+#toggle
+
+@client.command(aliases=['togglecommand'])
+@commands.has_permissions(ban_members=True)
+@commands.cooldown(1, 3, commands.BucketType.user)
+async def toggle(ctx, command):
+        command = client.get_command(command)
+        
+
+        if command is None:
+            emb = discord.Embed(description=f"<:error:867509993884614666> {ctx.author.mention} That command is disabled or doesn't exist", color=0xec6a6a)
+            await ctx.send(embed=emb)
+
+        elif ctx.command == command:
+            emb = discord.Embed(description=f"<:error:867509993884614666> {ctx.author.mention} You can't disabled this command", color=0xec6a6a)
+            await ctx.send(embed=emb)
+
+        else:
+            command.enabled = not command.enabled
+            ternary = "enabled" if command.enabled else "disabled"
+            emb = discord.Embed(description=f"<:check:818339901959438346> {ctx.author.mention} I have {ternary} the command **{command.qualified_name}**", color=0x2ecc71)
             await ctx.send(embed=emb)
 
 #massunban
