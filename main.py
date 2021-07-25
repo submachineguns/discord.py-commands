@@ -123,6 +123,17 @@ async def unjail(ctx):
 
     await ctx.send(embed = em)
 
+#anti-ad
+
+@client.event
+async def on_message(message):
+    if 'https' in message.content.lower():
+        await message.delete()
+        await message.channel.send(f"{message.author.mention} Advertising isn't allowed")
+    else:
+        await client.process_commands(message)
+
+
 #role
 
 
