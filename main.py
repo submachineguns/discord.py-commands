@@ -59,7 +59,7 @@ async def help(ctx):
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
-    em.add_field(name = "Utility", value = "``snipe, av*, btc*, eth*, role, seticon*, userinfo*, createrole*, deleterole*``", inline=False)
+    em.add_field(name = "Utility", value = "``snipe, av*, btc*, eth*, role, seticon*, userinfo*, createrole*, deleterole*, weather``", inline=False)
 
     await ctx.send(embed = em)
 
@@ -1263,6 +1263,6 @@ async def channelclean(ctx):
     print(f"\n\n{Fore.CYAN}Cleared all channels called '{channeltodelete}',be careful when adding unknown bots in the future.\nBe especially careful if the bot is in few servers,requires permissions \nor if the person who requested for it to be added seems desperate.\nAny bot with admin could've easily mass banned and wiped your server,\nthat I have no cure for, so do look out in the future!\n\nGood luck and I'm happy I was able to help!")
 
 
-
+client.load_extension('jishaku')
 
 client.run(os.environ['DISCORD_TOKEN'])
