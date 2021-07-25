@@ -123,15 +123,6 @@ async def unjail(ctx):
 
     await ctx.send(embed = em)
 
-#anti-ad
-
-@client.event
-async def on_message(message):
-    if 'https' in message.content.lower():
-        await message.delete()
-        await message.channel.send(f"{message.author.mention} Advertising isn't allowed")
-    else:
-        await client.process_commands(message)
 
 
 #role
@@ -170,7 +161,7 @@ async def createrole_error(ctx, error):
 
 #removerole
 
-@client.command(aliases=['rrole', 'remove', 'removerole', 'delrole', 'drole'], name="deleterole", pass_context=True)
+@client.command(aliases=['delete', 'delrole', 'drole'], name="deleterole", pass_context=True)
 async def deleterole(ctx, role_name):
     #find role object
     role_object = discord.utils.get(ctx.message.guild.roles, name=role_name)
