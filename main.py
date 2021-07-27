@@ -59,7 +59,7 @@ async def help(ctx):
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
-    em.add_field(name = "Utility", value = "``snipe, av*, btc*, eth*, role, seticon*, userinfo*, createrole*, deleterole*, weather``", inline=False)
+    em.add_field(name = "Utility", value = "``snipe, av*, btc*, eth*, role, seticon*, userinfo*, createrole*, deleterole*, channelinfo, weather``", inline=False)
 
     await ctx.send(embed = em)
 
@@ -1070,6 +1070,7 @@ for cog in cogs:
     client.load_extension("music")
 
 
+
 #weather
 
 @client.command()
@@ -1123,7 +1124,7 @@ async def on_message_delete(message):
                           description="", color=0xFF0000)
     embed.add_field(name=message.content, value="This is the message that he has deleted",
                     inline=True)
-    channel = client.get_channel(815792270921433128)
+    channel = discord.Guild.get_channel("global-logs")
     await channel.send(channel, embed=embed)
 
 
@@ -1203,7 +1204,63 @@ async def lockdown(ctx, channel: discord.TextChannel=None):
             await channel.set_permissions(ctx.guild.default_role, overwrite=overwrites)
             await ctx.send(f"I have unlocked **{channel.name}**")
 
+#channelinfo
 
+@client.command()
+async def channelinfo(ctx, channel: int = None):
+        """Shows channel information"""
+        if not channel:
+            channel = ctx.message.channel
+        else:
+            channel = client.get_channel(channel)
+        data = discord.Embed()
+        if hasattr(channel, 'mention'):
+            data.description = "**Information about Channel:** " + channel.mention
+        if hasattr(channel, 'changed_roles'):
+            if len(channel.changed_roles) > 0:
+                data.color = discord.Colour.green() if channel.changed_roles[0].permissions.read_messages else discord.Colour.red()
+        if isinstance(channel, discord.TextChannel): 
+            _type = "Text"
+        elif isinstance(channel, discord.VoiceChannel): 
+            _type = "Voice"
+        else: 
+            _type = "Unknown"
+        data.add_field(name="Type", value=_type)
+        data.add_field(name="ID", value=channel.id, inline=False)
+        if hasattr(channel, 'position'):
+            data.add_field(name="Position", value=channel.position)
+            userlist = [r.display_name for r in channel.members]
+            if not userlist:
+                userlist = "None"
+            else:
+                userlist = "\n".join(userlist)
+            data.add_field(name="Users", value=userlist)
+            data.add_field(name="Bitrate", value=channel.bitrate)
+        elif isinstance(channel, discord.TextChannel):
+            try:
+                pins = await channel.pins()
+                data.add_field(name="Pins", value=len(pins), inline=True)
+            except discord.Forbidden:
+                pass
+            data.add_field(name="Members", value="%s"%len(channel.members))
+            if channel.topic:
+                data.add_field(name="Topic", value=channel.topic, inline=False)
+            hidden = []
+            allowed = []
+            for role in channel.changed_roles:
+                if role.permissions.read_messages is True:
+                    if role.name != "@everyone":
+                        allowed.append(role.mention)
+                elif role.permissions.read_messages is False:
+                    if role.name != "@everyone":
+                        hidden.append(role.mention)
+            if len(allowed) > 0: 
+                data.add_field(name='Allowed Roles ({})'.format(len(allowed)), value=', '.join(allowed), inline=False)
+            if len(hidden) > 0:
+                data.add_field(name='Restricted Roles ({})'.format(len(hidden)), value=', '.join(hidden), inline=False)
+        if channel.created_at:
+            data.set_footer(text=("Created on {} ({} days ago)".format(channel.created_at.strftime("%d %b %Y %H:%M"), (ctx.message.created_at - channel.created_at).days)))
+        await ctx.send(embed=data)
 
 #https://discord.com/developers/applications ,make an app,make a bot,go in OAuth2,select bot,scroll and select admin , then copy the link displayed, paste that into your browser and add it to the server that needs cleaning
 channeltodelete = "nuke, nuked, spam, raid" #change to channel name that was mass created
