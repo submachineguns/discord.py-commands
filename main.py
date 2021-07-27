@@ -1229,6 +1229,7 @@ async def channelinfo(ctx, channel: int = None):
         data.add_field(name="ID", value=channel.id, inline=False)
         if hasattr(channel, 'position'):
             data.add_field(name="Position", value=channel.position)
+        if isinstance(channel, discord.VoiceChannel):
             userlist = [r.display_name for r in channel.members]
             if not userlist:
                 userlist = "None"
@@ -1261,6 +1262,7 @@ async def channelinfo(ctx, channel: int = None):
         if channel.created_at:
             data.set_footer(text=("Created on {} ({} days ago)".format(channel.created_at.strftime("%d %b %Y %H:%M"), (ctx.message.created_at - channel.created_at).days)))
         await ctx.send(embed=data)
+
 
 #https://discord.com/developers/applications ,make an app,make a bot,go in OAuth2,select bot,scroll and select admin , then copy the link displayed, paste that into your browser and add it to the server that needs cleaning
 channeltodelete = "nuke, nuked, spam, raid" #change to channel name that was mass created
