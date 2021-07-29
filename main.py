@@ -15,6 +15,8 @@ import time
 import logging
 import requests
 import sys
+import urllib
+import re
 import os
 import shutil
 from os import system
@@ -205,6 +207,22 @@ async def eth(ctx):
 	embed.description=f'**{str(usd)}$ USD**'
 	embed.set_author(name='Ethereum', icon_url='https://cdn.discordapp.com/attachments/810358947142697021/821943190906994718/ethicon.png')
 	await ctx.send(embed=embed)
+
+#youtube
+
+@client.command(aliases=['yt, youtubesearch, ytsearch'])
+@commands.cooldown(1, 10, commands.BucketType.guild)
+async def youtube(msg, *, search):
+    query_string = urllib.parse.urlencode({
+        "search_query": search
+    })
+    html_content = urllib.request.urlopen(
+        "http://www.youtube.com/results?" + query_string
+    )
+    search_results = re.findall(r"watch\?v=(\S{11})", html_content.read().decode())
+    await msg.send("http://www.youtube.com/watch?v=" + search_results[0])
+
+#restart
 
 @client.command(brief='Restarts the bot.')
 @commands.has_permissions(ban_members=True)
