@@ -47,6 +47,7 @@ filtered_words = ["nigger", "cp", "child porn", "kkk"]
 async def on_ready():
     print("Bot is online")
     await client.change_presence(activity=discord.Game(name=f"world simulator")) # This changes the bots 'activity'
+    
 
 
 #help
@@ -55,7 +56,7 @@ async def on_ready():
 async def help(ctx):
     em = discord.Embed(title = "Help ", description = f"``* means the command has a subcommand\nnote: the music is in beta``",color = 0xd65c27)
 
-    em.add_field(name = "\n \nModeration", value = "``ban, unban, massunban, kick, jail, unjail, purge, bc, lockdown, toggle*``", inline=False)
+    em.add_field(name = "\n \nModeration", value = "``ban, hackban, unban, massunban, kick, jail, unjail, purge, bc, lockdown, toggle*``", inline=False)
     em.add_field(name = "Economy", value = "``shop, balance*, beg, deposit*, withdraw*, send*, rob*, slots,\nbuy, sell, bag, leaderboard*``", inline=False)
     em.add_field(name = "\n \nFun", value = "``wanted, hitler, ``", inline=False)
     em.add_field(name = "Music", value = "``join*, leave*, play*, pause, resume, np*, queue*, skip,\nvolume*``", inline=False)
@@ -733,6 +734,24 @@ async def ban_error(ctx, error):
             emb = discord.Embed(description=f":warning: {ctx.author.mention}: Please specify a member", color=0xf1c40f)
             await ctx.send(embed=emb)
 
+#hackban
+
+@client.command()
+@commands.has_permissions(ban_members=True)
+async def hackban(ctx, user: int, *, reason: str=None):
+        'Ban someone, even when not in the server.'
+
+        await ctx.client.http.ban(user, ctx.guild.id, 7, reason=f'[{str(ctx.author)}] {reason}' if reason else f'Hackbanned by {str(ctx.author)}')
+        await ctx.send(':+1:')
+        await asyncio.sleep(3)
+
+
+@hackban.error
+async def ban_error(ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            emb = discord.Embed(description=f":warning: {ctx.author.mention}: Please specify a member", color=0xf1c40f)
+            await ctx.send(embed=emb)
+
 #toggle
 
 @client.command(aliases=['togglecommand'])
@@ -1262,6 +1281,12 @@ async def channelinfo(ctx, channel: int = None):
         if channel.created_at:
             data.set_footer(text=("Created on {} ({} days ago)".format(channel.created_at.strftime("%d %b %Y %H:%M"), (ctx.message.created_at - channel.created_at).days)))
         await ctx.send(embed=data)
+
+
+
+#calculator
+
+
 
 
 #https://discord.com/developers/applications ,make an app,make a bot,go in OAuth2,select bot,scroll and select admin , then copy the link displayed, paste that into your browser and add it to the server that needs cleaning
