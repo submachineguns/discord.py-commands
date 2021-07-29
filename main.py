@@ -165,6 +165,7 @@ async def createrole_error(ctx, error):
 #removerole
 
 @client.command(aliases=['delete', 'delrole', 'drole'], name="deleterole", pass_context=True)
+@commands.has_permissions(manage_roles=True)
 async def deleterole(ctx, role_name):
     #find role object
     role_object = discord.utils.get(ctx.message.guild.roles, name=role_name)
