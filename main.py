@@ -212,6 +212,7 @@ async def eth(ctx):
 #youtube
 
 @client.command(aliases=['yt, youtubesearch, ytsearch'])
+@commands.has_permissions(manage_roles=True)
 @commands.cooldown(1, 10, commands.BucketType.guild)
 async def youtube(msg, *, search):
     query_string = urllib.parse.urlencode({
