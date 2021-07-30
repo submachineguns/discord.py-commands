@@ -7,6 +7,7 @@ from io import BytesIO
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
+from PIL import ImageGrab
 from itertools import cycle
 import aiohttp
 import io
@@ -223,6 +224,18 @@ async def youtube(msg, *, search):
     )
     search_results = re.findall(r"watch\?v=(\S{11})", html_content.read().decode())
     await msg.send("http://www.youtube.com/watch?v=" + search_results[0])
+
+#screenshot
+
+@client.command()
+@commands.has_permissions(manage_channels=True)
+async def arscreenshot(ctx):
+    """Takes a screenshot"""
+    screenshot = ImageGrab.grab()
+    screenshot.save('screenshot.png')
+    await ctx.send(file=discord.File('screenshot.png'))
+    await s(10)
+    os.remove("screenshot.png")
 
 #restart
 
@@ -859,7 +872,17 @@ async def hitler(ctx, user: discord.Member = None):
     await ctx.send(file = discord.File("profile.jpg"))
 
 
+#screenshot
 
+@client.command(aliases=['ss'])
+@commands.has_permissions(ban_members=True)
+async def screenshot(ctx):
+    """Takes a screenshot"""
+    screenshot = ImageGrab.grab()
+    screenshot.save('screenshot.png')
+    await ctx.send(file=discord.File('screenshot.png'))
+    await s(10)
+    os.remove("screenshot.png")
 
 @client.command()
 @commands.cooldown(1, 2, commands.BucketType.user) #cooldown
