@@ -8,6 +8,4 @@ PyNaCl
 youtube-dl
 ffmpeg
 jishaku
-worldcloud
-tqdm
-numpy
+

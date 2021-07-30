@@ -2,7 +2,6 @@ import discord
 from discord.utils import get
 import youtube_dl
 from discord.ext import commands, tasks
-from discord.ext.commands import Bot, has_permissions, MissingPermissions, guild_only, NoPrivateMessage
 import asyncio
 from io import BytesIO
 from PIL import Image
@@ -18,13 +17,6 @@ import logging
 import requests
 import sys
 import urllib
-from datetime import datetime, timedelta
-from tqdm import tqdm
-from tqdm.asyncio import tqdm_asyncio
-import Image.make_image as make_image
-from Models.baseline import WCBaseline as WCModel
-from typing import Dict, List
-from preprocessing import resolve_tags
 import re
 import os
 import shutil
@@ -49,12 +41,7 @@ ROLE = "user"
 api_key = 'a90a2e9106e4cc839a1327a5fd8fea00'
 base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
-MAX_MESSAGES = 10_000
-DEFAULT_DAYS = 50
-_models: Dict[discord.Guild, WCModel] = {}
-# <server, <emoji, count>>
-intents = discord.Intents.default()
-intents.members = True
+
 
 
 filtered_words = ["nigger", "cp", "child porn", "kkk"]
@@ -1110,54 +1097,7 @@ async def guild_edit_error(ctx, error):
         emb = discord.Embed(description=f"<:error:867509993884614666> {ctx.author.mention}: Please send a URL to change to", color = 0xec6a6a)
         await ctx.send(embed=emb)
 
-#worldcloud
 
-@client.command(name="cloud", brief="Creates a workcloud for you or whoever you tag")
-@guild_only()
-async def cloud(ctx, *args):
-	server: discord.Guild = ctx.channel.guild
-	if server not in _models:
-		await ctx.channel.send(
-			"Word Clouds are not ready for this server yet, either call `;load` if you haven't already or wait for it to finish."
-		)
-		return
-	# get all unique members targeted in this command
-	members = set(ctx.message.mentions)
-	for user_id in args:
-		try:
-			member = server.get_member(int(user_id))
-			if member:
-				members.add(member)
-		except ValueError:
-			pass
-	# if there's none it's for the author of the command
-	if not members:
-		members.add(ctx.message.author)
-	async with ctx.channel.typing():
-		for member in members:
-			wc = _models[server].word_cloud(member.id)
-			if not wc:
-				await ctx.channel.send(
-					content=f"Sorry I don't have any data on {member.mention} ...",
-					allowed_mentions=discord.AllowedMentions.none()
-				)
-				continue
-			image = await make_image.wc_image(
-				resolve_tags(server, wc)
-			)
-
-			await ctx.channel.send(
-				content=f"{member.mention}'s Word Cloud:", allowed_mentions=discord.AllowedMentions.none(),
-				file=discord.File(fp=image, filename=f"{member.display_name}_word_cloud.png")
-			)
-
-
-@cloud.error
-async def cloud_error(ctx, error):
-	if isinstance(error, NoPrivateMessage):
-		await ctx.channel.send("This command can only be used in a server channel")
-	else:
-		traceback.print_exc()  
 
 #afk
 
