@@ -10,3 +10,15 @@ async def hackban(ctx, user: discord.User):
     else:
         await ctx.guild.ban(user)
         await ctx.send(f":thumbsup:")
+        
+#error handling
+
+@hackban.error
+async def hackban_error(ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            
+            em = discord.Embed(color = 0xd65c27)
+            
+            em.add_field(name = ";hackban", value = "```Syntax: ;hackban (user)\nExample: ;hackban 852669175580958780```")
+
+            await ctx.send(embed = em)
